@@ -77,9 +77,10 @@
 
                 <!-- Product Image -->
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:scaleType="fitCenter" />
+                    android:layout_width="361dp"
+                    android:layout_height="200dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/banner" />
             </LinearLayout>
 
             <!-- Brand Categories -->
@@ -87,7 +88,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:importantForAccessibility="no">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -100,7 +102,8 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_marginEnd="12dp"
-                        android:padding="12dp" />
+                        android:padding="12dp"
+                        android:contentDescription="@null"/>
                     <!-- Repeat for more brands -->
                 </LinearLayout>
             </HorizontalScrollView>
@@ -133,6 +136,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerNewArrival"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"/>
@@ -140,11 +144,5 @@
     </ScrollView>
 
     <!-- Bottom Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:labelVisibilityMode="labeled"
-        android:background="@android:color/white"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
