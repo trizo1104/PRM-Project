@@ -1,6 +1,7 @@
 package com.example.electronic_equipment.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.adapter.CartAdapter;
+import com.example.electronic_equipment.adapter.CartManager;
 import com.example.electronic_equipment.model.Cart;
 import com.example.electronic_equipment.model.Product;
 
@@ -29,8 +31,18 @@ public class CartFragment extends Fragment {
     private CartAdapter cartAdapter;
     private ArrayList<Cart> cartList;
 
+
     public CartFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        cartList.clear();
+        cartList.addAll(CartManager.getInstance().getCartItems());
+        cartAdapter.notifyDataSetChanged();
+        updateTotalPrice();
     }
 
     @Override
@@ -47,20 +59,14 @@ public class CartFragment extends Fragment {
 
         setupCartList();
         setupRecyclerView();
-        updateTotalPrice();
+//        updateTotalPrice();
+        onResume();
 
         return view;
     }
 
     private void setupCartList() {
-        cartList = new ArrayList<>();
-
-        // Sample data
-        Product p1 = new Product("Nike Air Force", "Men's Road Running Shoes", 167.76, R.drawable.af1);
-        Product p2 = new Product("Nike React", "Running Shoes", 150.25, R.drawable.af1);
-
-        cartList.add(new Cart(p1, 1));
-        cartList.add(new Cart(p2, 2));
+        cartList = new ArrayList<>(CartManager.getInstance().getCartItems());
     }
 
     private void setupRecyclerView() {
@@ -76,4 +82,5 @@ public class CartFragment extends Fragment {
         }
         txtTotalPrice.setText("Total Price\n$" + String.format("%.2f", total));
     }
+
 }

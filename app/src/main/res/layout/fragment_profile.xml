@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E3F2FD"
+    android:padding="16dp">
+
+    <!-- Back arrow and Title -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="8dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Profile"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+        <!-- Invisible view to balance back button -->
+        <View
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+    </LinearLayout>
+
+    <!-- Profile Picture -->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_profile"
+        android:padding="4dp" />
+
+    <!-- Name -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jane Cooper"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Email -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="janecooper@example.com"
+        android:gravity="center"
+        android:textColor="#666"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- White Container for options -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="2dp"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="4dp"
+        android:clipToPadding="false"
+        android:backgroundTint="#FFFFFF"
+        android:backgroundTintMode="src_in"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_white_bg">
+
+        <!-- Each Row -->
+        <!-- Repeat this block for each option -->
+
+        <!-- 1. UPI ID -->
+        <include layout="@layout/item_profile_option"
+            android:tag="UPI ID"
+            android:id="@+id/item_upi"
+            />
+
+        <!-- 2. QR Code -->
+        <include layout="@layout/item_profile_option"
+            android:tag="QR Code"
+            android:id="@+id/item_qr"
+            />
+
+        <!-- 3. Payment Method -->
+        <include layout="@layout/item_profile_option"
+            android:tag="Payment Method"
+            android:id="@+id/item_payment"
+            />
+
+        <!-- 4. Rewards -->
+        <include layout="@layout/item_profile_option"
+            android:tag="Rewards"
+            android:id="@+id/item_rewards"
+            />
+
+        <!-- 5. Settings -->
+        <include layout="@layout/item_profile_option"
+            android:tag="Settings"
+            android:id="@+id/item_settings"
+            />
+
+        <!-- 6. Help -->
+        <include layout="@layout/item_profile_option"
+            android:tag="Help Feedback"
+            android:id="@+id/item_help"
+            />
+
+    </LinearLayout>
+</LinearLayout>

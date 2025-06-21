@@ -8,6 +8,16 @@ public class Product implements Serializable {
     private double price;
     private int imageResId;
 
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Product(String name, String description, double price, int imageResId)  {
         this.name = name;
         this.description = description;

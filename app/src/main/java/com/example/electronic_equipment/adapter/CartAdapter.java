@@ -11,17 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.model.Cart;
+import com.example.electronic_equipment.model.Product;
 
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
+
     private List<Cart> cartItems;
+    private OnCartChangeListener cartChangeListener;
 
     public interface OnCartChangeListener {
         void onCartChanged();
     }
-
-    private OnCartChangeListener cartChangeListener;
 
     public CartAdapter(List<Cart> cartItems, OnCartChangeListener listener) {
         this.cartItems = cartItems;
@@ -44,34 +45,41 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
     }
 
+    @NonNull
     @Override
-    public CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart, parent, false);
         return new CartViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(CartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Cart item = cartItems.get(position);
-        holder.name.setText(item.getProduct().getName());
-        holder.price.setText("$" + item.getTotalPrice());
-        holder.img.setImageResource(item.getProduct().getImageResId());
+        Product product = item.getProduct();
+
+        holder.name.setText(product.getName());
+        holder.price.setText("$" + String.format("%.2f", item.getTotalPrice()));
+        holder.img.setImageResource(product.getImageResId());
         holder.quantity.setText(String.valueOf(item.getQuantity()));
 
         holder.btnPlus.setOnClickListener(v -> {
-            item.setQuantity(item.getQuantity() + 1);
+            int newQty = item.getQuantity() + 1;
+            item.setQuantity(newQty);
             notifyItemChanged(position);
             if (cartChangeListener != null) cartChangeListener.onCartChanged();
         });
 
         holder.btnMinus.setOnClickListener(v -> {
-            if (item.getQuantity() > 1) {
-                item.setQuantity(item.getQuantity() - 1);
+            int currentQty = item.getQuantity();
+            if (currentQty > 1) {
+                item.setQuantity(currentQty - 1);
                 notifyItemChanged(position);
-                if (cartChangeListener != null) cartChangeListener.onCartChanged();
+            } else {
+                cartItems.remove(position);
+                notifyItemRemoved(position);
             }
+            if (cartChangeListener != null) cartChangeListener.onCartChanged();
         });
-
     }
 
     @Override
@@ -79,4 +87,3 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return cartItems.size();
     }
 }
-
