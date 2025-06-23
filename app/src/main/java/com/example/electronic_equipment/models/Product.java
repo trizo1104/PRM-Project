@@ -93,7 +93,7 @@ public class Product {
         IsActive = active;
     }
 
-    public void setCategoryId(String categogyId) {
-        CategoryId = categogyId;
+    public void setCategoryId(String categoryId) {
+        CategoryId = categoryId;
     }
 }
