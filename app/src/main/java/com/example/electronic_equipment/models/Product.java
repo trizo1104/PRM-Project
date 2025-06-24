@@ -1,6 +1,8 @@
 package com.example.electronic_equipment.models;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String ProductId;
     private String Name;
     private String Description;
@@ -23,6 +25,8 @@ public class Product {
         IsActive = isActive;
         CategoryId = categoryId;
     }
+
+
 
     // Getter & Setter
     public String getProductId() {

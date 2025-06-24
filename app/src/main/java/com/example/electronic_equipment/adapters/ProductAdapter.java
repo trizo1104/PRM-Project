@@ -1,6 +1,7 @@
 package com.example.electronic_equipment.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.*;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private Context context;
     private List<Product> productList;
 
+    public interface OnItemClickListener {
+        void onEdit(Product product);
+
+        void onDelete(Product product);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+
     public ProductAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
@@ -35,6 +49,39 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     // Bind dữ liệu vào ViewHolder
+    // @Override
+//    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+//        Product product = productList.get(position);
+//        holder.txtName.setText(product.getName());
+//        DecimalFormat formatter = new DecimalFormat("#,###");
+//        holder.txtQuantity.setText(String.valueOf(product.getQuantity()));
+//        holder.txtPrice.setText(formatter.format(product.getPrice()) + " đ");
+//        holder.txtDescription.setText(product.getDescription());
+//        if (product.getImageUrl() != null && !product.getImageUrl().isEmpty()) {
+//            Glide.with(context)
+//                    .load(product.getImageUrl())
+//                    .placeholder(R.drawable.placeholder_image)
+//                    .error(R.drawable.error_image)
+//                    .into(holder.imgProduct);
+//        } else {
+//            holder.imgProduct.setImageResource(R.drawable.placeholder_image);
+//        }
+//
+//
+//        holder.imgEdit.setOnClickListener(v -> {
+//            Intent intent = new Intent(context, UpdateProductActivity.class);
+//            intent.putExtra("product", product);
+//            context.startActivity(intent);
+//        });
+//
+//        holder.imgDelete.setOnClickListener(v -> {
+//            if (context instanceof ProductListActivity) {
+//                ((ProductListActivity) context).deleteProduct(product.getProductId());
+//            }
+//        });
+//    }
+
+
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
@@ -43,6 +90,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.txtQuantity.setText(String.valueOf(product.getQuantity()));
         holder.txtPrice.setText(formatter.format(product.getPrice()) + " đ");
         holder.txtDescription.setText(product.getDescription());
+
         if (product.getImageUrl() != null && !product.getImageUrl().isEmpty()) {
             Glide.with(context)
                     .load(product.getImageUrl())
@@ -53,18 +101,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             holder.imgProduct.setImageResource(R.drawable.placeholder_image);
         }
 
+        holder.imgEdit.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onEdit(product);
+            }
+        });
 
-//        holder.imgEdit.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, UpdateProductActivity.class);
-//            intent.putExtra("product", product);
-//            context.startActivity(intent);
-//        });
-
-//        holder.imgDelete.setOnClickListener(v -> {
-//            if (context instanceof ProductListActivity) {
-//                ((ProductListActivity) context).deleteProduct(product.getProductId());
-//            }
-//        });
+        holder.imgDelete.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onDelete(product);
+            }
+        });
     }
 
     @Override

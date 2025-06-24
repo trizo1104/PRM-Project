@@ -63,12 +63,55 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onEdit(Product product) {
+                Intent intent = new Intent(MainActivity.this, AddEditProductActivity.class);
+                intent.putExtra("product", product);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDelete(Product product) {
+                new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Xác nhận xóa")
+                        .setMessage("Bạn có chắc chắn muốn xóa sản phẩm \"" + product.getName() + "\"?")
+                        .setPositiveButton("Xóa", (dialog, which) -> {
+                            deleteProduct(product.getProductId());
+                        })
+                        .setNegativeButton("Hủy", null)
+                        .show();
+            }
+        });
+
+
         btnAdd.setOnClickListener(v -> {
             startActivity(new Intent(this, AddEditProductActivity.class));
         });
 
         fetchProductsFromAPI();
         loadCategories();
+    }
+
+
+    private void deleteProduct(String productId) {
+        productApi.deleteProduct(productId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show();
+                    fetchProductsFromAPI(); // Reload danh sách
+                } else {
+                    Toast.makeText(MainActivity.this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Lỗi kết nối khi xóa", Toast.LENGTH_SHORT).show();
+                Log.e("DELETE_ERROR", "Lỗi:", t);
+            }
+        });
     }
 
 
@@ -118,10 +161,10 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             Category selected = categoryList.get(position);
-                            selectedCategoryId = selected.getId();
+                            selectedCategoryId = selected.getCategoryId();
 
                             if (selectedCategoryId.equals("all")) {
-                                fetchProductsFromAPI(); // load toàn bộ
+                                fetchProductsFromAPI();
                             } else {
                                 fetchProductsByCategory(selectedCategoryId); // lọc theo category
                             }
@@ -164,6 +207,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("API_ERROR", "Lỗi filter sản phẩm", t);
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchProductsFromAPI();
     }
 
 

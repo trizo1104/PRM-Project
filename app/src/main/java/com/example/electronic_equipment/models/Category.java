@@ -9,7 +9,7 @@ public class Category {
         this.Name = Name;
     }
 
-    public String getId() { return CategoryId; }
+    public String getCategoryId() { return CategoryId; }
     public String getName() { return Name; }
 
     @Override
