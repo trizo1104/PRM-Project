@@ -48,40 +48,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view);
     }
 
-    // Bind dữ liệu vào ViewHolder
-    // @Override
-//    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-//        Product product = productList.get(position);
-//        holder.txtName.setText(product.getName());
-//        DecimalFormat formatter = new DecimalFormat("#,###");
-//        holder.txtQuantity.setText(String.valueOf(product.getQuantity()));
-//        holder.txtPrice.setText(formatter.format(product.getPrice()) + " đ");
-//        holder.txtDescription.setText(product.getDescription());
-//        if (product.getImageUrl() != null && !product.getImageUrl().isEmpty()) {
-//            Glide.with(context)
-//                    .load(product.getImageUrl())
-//                    .placeholder(R.drawable.placeholder_image)
-//                    .error(R.drawable.error_image)
-//                    .into(holder.imgProduct);
-//        } else {
-//            holder.imgProduct.setImageResource(R.drawable.placeholder_image);
-//        }
-//
-//
-//        holder.imgEdit.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, UpdateProductActivity.class);
-//            intent.putExtra("product", product);
-//            context.startActivity(intent);
-//        });
-//
-//        holder.imgDelete.setOnClickListener(v -> {
-//            if (context instanceof ProductListActivity) {
-//                ((ProductListActivity) context).deleteProduct(product.getProductId());
-//            }
-//        });
-//    }
-
-
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
