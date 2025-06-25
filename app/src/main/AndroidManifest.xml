@@ -15,7 +15,7 @@
         <activity android:name=".acvitities.AddEditProductActivity" />
 <!--        <activity android:name=".acvitities.MainActivity" />-->
         <activity
-            android:name=".acvitities.MainActivity"
+            android:name=".acvitities.MainStaffActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

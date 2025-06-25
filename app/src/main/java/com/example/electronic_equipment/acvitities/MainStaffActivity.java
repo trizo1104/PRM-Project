@@ -29,7 +29,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainStaffActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ProductAdapter adapter;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.staff_main_activity);
 
         recyclerView = findViewById(R.id.recyclerView);
         btnAdd = findViewById(R.id.btnAdd);
@@ -66,14 +66,14 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onEdit(Product product) {
-                Intent intent = new Intent(MainActivity.this, AddEditProductActivity.class);
+                Intent intent = new Intent(MainStaffActivity.this, AddEditProductActivity.class);
                 intent.putExtra("product", product);
                 startActivity(intent);
             }
 
             @Override
             public void onDelete(Product product) {
-                new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this)
+                new androidx.appcompat.app.AlertDialog.Builder(MainStaffActivity.this)
                         .setTitle("Xác nhận xóa")
                         .setMessage("Bạn có chắc chắn muốn xóa sản phẩm \"" + product.getName() + "\"?")
                         .setPositiveButton("Xóa", (dialog, which) -> {
@@ -99,16 +99,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainStaffActivity.this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show();
                     fetchProductsFromAPI(); // Reload danh sách
                 } else {
-                    Toast.makeText(MainActivity.this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainStaffActivity.this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Lỗi kết nối khi xóa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainStaffActivity.this, "Lỗi kết nối khi xóa", Toast.LENGTH_SHORT).show();
                 Log.e("DELETE_ERROR", "Lỗi:", t);
             }
         });
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     categoryList.add(new Category("all", "Tất cả")); // item đầu tiên là "Tất cả"
                     categoryList.addAll(response.body());
 
-                    ArrayAdapter<Category> adapter = new ArrayAdapter<>(MainActivity.this,
+                    ArrayAdapter<Category> adapter = new ArrayAdapter<>(MainStaffActivity.this,
                             android.R.layout.simple_spinner_item, categoryList);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerCategory.setAdapter(adapter);
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Lỗi tải danh mục", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainStaffActivity.this, "Lỗi tải danh mục", Toast.LENGTH_SHORT).show();
             }
         });
     }
