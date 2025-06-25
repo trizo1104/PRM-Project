@@ -1,5 +1,6 @@
 package com.example.electronic_equipment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.MenuItem;
@@ -14,6 +15,8 @@ import com.example.electronic_equipment.Fragment.CartFragment;
 import com.example.electronic_equipment.Fragment.ExploreFragment;
 import com.example.electronic_equipment.Fragment.HomeFragment;
 import com.example.electronic_equipment.Fragment.SettingFragment;
+import com.example.electronic_equipment.login.LoginActivity;
+import com.example.electronic_equipment.login.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -32,9 +35,17 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-// Set default selected item and fragment
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
         loadFragment(new HomeFragment());
+
+        SessionManager sessionManager = new SessionManager(this);
+        if (!sessionManager.isLoggedIn()) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment;

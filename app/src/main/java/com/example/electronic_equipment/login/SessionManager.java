@@ -4,27 +4,33 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SessionManager {
-    private static final String PREF_NAME = "user_session";
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    Context context;
+
+    private static final String PREF_NAME = "session_pref";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
 
     public SessionManager(Context context) {
-        prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        editor = prefs.edit();
+        this.context = context;
+        sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
-    public void setLogin(boolean isLoggedIn) {
-        editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
+    public void setLogin() {
+        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+        editor.apply();
+    }
+
+    public void logout() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_IS_LOGGED_IN, false);
+        editor.clear(); // or remove("userToken") if using tokens
         editor.apply();
     }
 
     public boolean isLoggedIn() {
-        return prefs.getBoolean(KEY_IS_LOGGED_IN, false);
-    }
-
-    public void logout() {
-        editor.clear();
-        editor.apply();
+        return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 }
+

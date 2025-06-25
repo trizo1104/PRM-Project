@@ -40,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         registerLink = findViewById(R.id.registerLink);
 
+
+
         loginButton.setOnClickListener(v -> {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
@@ -47,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             // TODO: validate and check credentials
             if (!email.isEmpty() && !password.isEmpty()) {
                 // Pretend login is always successful
-                sessionManager.setLogin(true);
+                sessionManager.setLogin();
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, MainActivity.class));
                 finish(); // finish LoginActivity

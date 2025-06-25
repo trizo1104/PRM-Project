@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#E3F2FD"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <!-- Back arrow and Title -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingVertical="8dp">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="Back" />
+            android:contentDescription="Back"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="0dp"
@@ -27,8 +26,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Profile"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <!-- Invisible view to balance back button -->
         <View
@@ -41,85 +40,104 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:scaleType="centerCrop"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_profile"
-        android:padding="4dp" />
+        android:padding="4dp"
+        android:scaleType="centerCrop" />
 
     <!-- Name -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Jane Cooper"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:textStyle="bold"
+        android:text="Jane Cooper"
         android:textSize="20sp"
-        android:layout_marginTop="8dp"/>
+        android:textStyle="bold" />
 
     <!-- Email -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="janecooper@example.com"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
+        android:text="janecooper@example.com"
         android:textColor="#666"
-        android:textSize="14sp"
-        android:layout_marginBottom="16dp"/>
+        android:textSize="14sp" />
 
     <!-- White Container for options -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:elevation="2dp"
-        android:padding="12dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginHorizontal="4dp"
-        android:clipToPadding="false"
+        android:background="@drawable/rounded_white_bg"
         android:backgroundTint="#FFFFFF"
         android:backgroundTintMode="src_in"
-        android:layout_gravity="center"
-        android:background="@drawable/rounded_white_bg">
+        android:clipToPadding="false"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <!-- Each Row -->
         <!-- Repeat this block for each option -->
 
         <!-- 1. UPI ID -->
-        <include android:id="@+id/item_upi"
+        <include
+            android:id="@+id/item_upi"
             layout="@layout/item_profile_option"
 
             />
 
         <!-- 2. QR Code -->
-        <include android:id="@+id/item_qr"
+        <include
+            android:id="@+id/item_qr"
             layout="@layout/item_profile_option"
 
             />
 
         <!-- 3. Payment Method -->
-        <include android:id="@+id/item_payment"
+        <include
+            android:id="@+id/item_payment"
             layout="@layout/item_profile_option"
 
             />
 
         <!-- 4. Rewards -->
-        <include android:id="@+id/item_rewards"
+        <include
+            android:id="@+id/item_rewards"
             layout="@layout/item_profile_option"
 
             />
 
         <!-- 5. Settings -->
-        <include android:id="@+id/item_settings"
+        <include
+            android:id="@+id/item_settings"
             layout="@layout/item_profile_option"
 
             />
 
         <!-- 6. Help -->
-        <include  android:id="@+id/item_help"
+        <include
+            android:id="@+id/item_help"
             layout="@layout/item_profile_option"
 
             />
 
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#FF5252"
+            android:text="Logout"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
     </LinearLayout>
+
+
+
 </LinearLayout>
