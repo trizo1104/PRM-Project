@@ -15,7 +15,7 @@
 
         <!-- Set LoginActivity as the launcher activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,9 @@
         <activity android:name=".register.RegisterActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".activity.DetailActivity" />
-        <activity android:name=".activity.CartActivity" />
+        <activity android:name=".activity.PaymentSuccessActivity" />
+        <activity android:name=".MainActivity" />
+<!--        <activity android:name=".activity.CartActivity" />-->
         <!--        <activity android:name=".HomeActivity" />-->
     </application>
 

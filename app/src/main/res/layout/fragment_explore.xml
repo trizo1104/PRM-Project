@@ -1,15 +1,34 @@
-<!-- res/layout/fragment_home.xml -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragmentExplore"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F9F9F9">
 
-    <TextView
-        android:layout_gravity="center"
-        android:text="Explore Fragment"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</FrameLayout>
+    <!-- Search Bar -->
+    <EditText
+        android:id="@+id/editSearch"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Search products..."
+        android:background="@drawable/search_bar_background"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="8dp"
+        android:inputType="text"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Product List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerNewArrival"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:nestedScrollingEnabled="false"
+        android:clipToPadding="false"
+        android:paddingBottom="12dp" />
+
+</LinearLayout>

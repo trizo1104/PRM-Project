@@ -1,5 +1,6 @@
 package com.example.electronic_equipment.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.electronic_equipment.R;
+import com.example.electronic_equipment.activity.PaymentSuccessActivity;
 import com.example.electronic_equipment.adapter.CartAdapter;
 import com.example.electronic_equipment.adapter.CartManager;
 import com.example.electronic_equipment.model.Cart;
@@ -56,6 +58,11 @@ public class CartFragment extends Fragment {
         btnBack = view.findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
+
+        btnProcessPayment.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), PaymentSuccessActivity.class);
+            startActivity(intent);
+        });
 
         setupCartList();
         setupRecyclerView();

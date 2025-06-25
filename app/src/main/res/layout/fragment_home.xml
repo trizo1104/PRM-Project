@@ -8,7 +8,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:layout_marginBottom="60dp">
 
         <LinearLayout
             android:orientation="vertical"
@@ -97,14 +98,63 @@
                     android:layout_height="wrap_content">
 
                     <!-- Sample Brand Icon -->
-                    <ImageView
-                        android:src="@drawable/af1"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:layout_marginEnd="12dp"
-                        android:padding="12dp"
-                        android:contentDescription="@null"/>
+                        android:src="@drawable/compass"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/CircleImageShape" />
                     <!-- Repeat for more brands -->
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/bell"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/CircleImageShape" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/grocerystore"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/CircleImageShape" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/ic_back"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/CircleImageShape" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/ic_launcher_background"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/CircleImageShape" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/af1"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/CircleImageShape" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/af1"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/CircleImageShape" />
                 </LinearLayout>
             </HorizontalScrollView>
 

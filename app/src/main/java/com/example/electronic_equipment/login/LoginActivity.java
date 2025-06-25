@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.electronic_equipment.Fragment.HomeFragment;
+import com.example.electronic_equipment.MainActivity;
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.register.RegisterActivity;
 
@@ -18,9 +20,19 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     TextView registerLink;
 
+    SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sessionManager = new SessionManager(this);
+        if (sessionManager.isLoggedIn()) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         emailEditText = findViewById(R.id.emailEditText);
@@ -29,10 +41,19 @@ public class LoginActivity extends AppCompatActivity {
         registerLink = findViewById(R.id.registerLink);
 
         loginButton.setOnClickListener(v -> {
-            // TODO: validate and send login request
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            Toast.makeText(this, "Login clicked", Toast.LENGTH_SHORT).show();
+
+            // TODO: validate and check credentials
+            if (!email.isEmpty() && !password.isEmpty()) {
+                // Pretend login is always successful
+                sessionManager.setLogin(true);
+                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, MainActivity.class));
+                finish(); // finish LoginActivity
+            } else {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            }
         });
 
         registerLink.setOnClickListener(v -> {

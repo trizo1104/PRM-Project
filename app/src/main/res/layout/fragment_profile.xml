@@ -86,39 +86,39 @@
         <!-- Repeat this block for each option -->
 
         <!-- 1. UPI ID -->
-        <include layout="@layout/item_profile_option"
-            android:tag="UPI ID"
-            android:id="@+id/item_upi"
+        <include android:id="@+id/item_upi"
+            layout="@layout/item_profile_option"
+
             />
 
         <!-- 2. QR Code -->
-        <include layout="@layout/item_profile_option"
-            android:tag="QR Code"
-            android:id="@+id/item_qr"
+        <include android:id="@+id/item_qr"
+            layout="@layout/item_profile_option"
+
             />
 
         <!-- 3. Payment Method -->
-        <include layout="@layout/item_profile_option"
-            android:tag="Payment Method"
-            android:id="@+id/item_payment"
+        <include android:id="@+id/item_payment"
+            layout="@layout/item_profile_option"
+
             />
 
         <!-- 4. Rewards -->
-        <include layout="@layout/item_profile_option"
-            android:tag="Rewards"
-            android:id="@+id/item_rewards"
+        <include android:id="@+id/item_rewards"
+            layout="@layout/item_profile_option"
+
             />
 
         <!-- 5. Settings -->
-        <include layout="@layout/item_profile_option"
-            android:tag="Settings"
-            android:id="@+id/item_settings"
+        <include android:id="@+id/item_settings"
+            layout="@layout/item_profile_option"
+
             />
 
         <!-- 6. Help -->
-        <include layout="@layout/item_profile_option"
-            android:tag="Help Feedback"
-            android:id="@+id/item_help"
+        <include  android:id="@+id/item_help"
+            layout="@layout/item_profile_option"
+
             />
 
     </LinearLayout>
