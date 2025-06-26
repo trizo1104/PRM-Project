@@ -1,4 +1,4 @@
-package com.example.electronic_equipment.acvitities;
+package com.example.electronic_equipment.activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +13,6 @@ import com.example.electronic_equipment.models.Product;
 import com.example.electronic_equipment.networks.CategoryApi;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
-import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

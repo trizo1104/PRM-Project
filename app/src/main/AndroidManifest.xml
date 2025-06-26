@@ -12,17 +12,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ElectronicEquipment"
         tools:targetApi="31">
-        <activity android:name=".acvitities.AddEditProductActivity" />
-<!--        <activity android:name=".acvitities.MainActivity" />-->
+
+        <!-- Set LoginActivity as the launcher activity -->
         <activity
-            android:name=".acvitities.MainStaffActivity"
+            android:name=".login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- RegisterActivity (just needs to be declared) -->
+        <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".activity.DetailActivity" />
+        <activity android:name=".activity.PaymentSuccessActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".activities.MainStaffActivity" />
+        <activity android:name=".activities.AddEditProductActivity" />
+
     </application>
+
 
 </manifest>
