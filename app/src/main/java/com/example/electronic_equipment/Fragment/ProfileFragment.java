@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +20,7 @@ import com.example.electronic_equipment.login.SessionManager;
 public class ProfileFragment extends Fragment {
 
     Button logoutButton;
+    SessionManager sessionManager;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -44,11 +44,19 @@ public class ProfileFragment extends Fragment {
         setProfileItem(view, R.id.item_help, "Help & Feedback", "We're here to help");
 
         logoutButton = view.findViewById(R.id.logoutButton);
+        sessionManager = new SessionManager(requireContext());
 
         logoutButton.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show();
-            logoutButton.postDelayed(this::logout, 300);
+            Log.d("DEBUG", "Calling check");
+
+            sessionManager.logout();
+
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            requireActivity().finish(); // Đóng toàn bộ stack
         });
+
     }
 
     private void setProfileItem(View root, int includeId, String title, String subtitle) {
@@ -62,15 +70,5 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void logout() {
-        SessionManager sessionManager = new SessionManager(requireContext());
-        sessionManager.logout();
-
-        Intent intent = new Intent(requireActivity(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-
-        requireActivity().finishAffinity(); // Kill all activities cleanly
-    }
 
 }

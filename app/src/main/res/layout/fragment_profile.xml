@@ -68,7 +68,7 @@
     <!-- White Container for options -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="464dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="4dp"
         android:layout_marginTop="8dp"
@@ -129,15 +129,15 @@
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="#FF5252"
             android:text="Logout"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
-    </LinearLayout>
 
+    </LinearLayout>
 
 
 </LinearLayout>

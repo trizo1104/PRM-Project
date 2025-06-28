@@ -2,6 +2,7 @@ package com.example.electronic_equipment.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -9,8 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.electronic_equipment.Fragment.HomeFragment;
-import com.example.electronic_equipment.MainActivity;
+import com.example.electronic_equipment.activities.MainActivity;
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.register.RegisterActivity;
 
@@ -25,9 +25,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("DEBUG", "LoginActivity opened");
 
         sessionManager = new SessionManager(this);
         if (sessionManager.isLoggedIn()) {
+            Log.d("DEBUG", "LoginActivity islogin");
             startActivity(new Intent(this, MainActivity.class));
             finish();
             return;

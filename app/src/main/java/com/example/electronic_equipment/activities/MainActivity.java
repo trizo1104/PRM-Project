@@ -1,20 +1,17 @@
-package com.example.electronic_equipment;
+package com.example.electronic_equipment.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.view.MenuItem;
-
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.electronic_equipment.Fragment.CartFragment;
 import com.example.electronic_equipment.Fragment.ExploreFragment;
 import com.example.electronic_equipment.Fragment.HomeFragment;
 import com.example.electronic_equipment.Fragment.SettingFragment;
+import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.login.LoginActivity;
 import com.example.electronic_equipment.login.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,11 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 

@@ -1,4 +1,4 @@
-package com.example.electronic_equipment.acvitities;
+package com.example.electronic_equipment.activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +13,6 @@ import com.example.electronic_equipment.models.Product;
 import com.example.electronic_equipment.networks.CategoryApi;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
-import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,18 +61,6 @@ public class AddEditProductActivity extends AppCompatActivity {
 
         loadCategories();
 
-//        if (product != null) {
-//            isEditMode = true;
-//            productId = product.getProductId();
-//
-//            edtName.setText(product.getName());
-//            edtPrice.setText(String.valueOf(product.getPrice()));
-//            edtImageUrl.setText(product.getImageUrl());
-//            edtQuantity.setText(String.valueOf(product.getQuantity()));
-//            edtDescription.setText(product.getDescription());
-//
-//            selectedCategoryId = product.getCategoryId();
-//        }
 
         if (isEditMode) {
             edtName.setText(editProduct.getName());
@@ -84,14 +71,6 @@ public class AddEditProductActivity extends AppCompatActivity {
             selectedCategoryId = editProduct.getCategoryId();
         }
 
-//        // Check nếu đang sửa sản phẩm
-//        if (getIntent().hasExtra("id")) {
-//            isEditMode = true;
-//            productId = getIntent().getStringExtra("id");
-//            edtName.setText(getIntent().getStringExtra("name"));
-//            edtPrice.setText(getIntent().getStringExtra("price"));
-//            edtImageUrl.setText(getIntent().getStringExtra("image"));
-//        }
 
         btnSave.setOnClickListener(v -> {
             String productId;

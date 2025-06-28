@@ -100,4 +100,5 @@ public class Product implements Serializable {
     public void setCategoryId(String categoryId) {
         CategoryId = categoryId;
     }
+
 }

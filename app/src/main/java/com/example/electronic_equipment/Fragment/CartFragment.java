@@ -2,7 +2,6 @@ package com.example.electronic_equipment.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.electronic_equipment.R;
-import com.example.electronic_equipment.activity.PaymentSuccessActivity;
-import com.example.electronic_equipment.adapter.CartAdapter;
-import com.example.electronic_equipment.adapter.CartManager;
-import com.example.electronic_equipment.model.Cart;
-import com.example.electronic_equipment.model.Product;
+import com.example.electronic_equipment.activities.PaymentSuccessActivity;
+import com.example.electronic_equipment.adapters.CartAdapter;
+import com.example.electronic_equipment.adapters.CartManager;
+import com.example.electronic_equipment.models.Cart;
 
 import java.util.ArrayList;
 

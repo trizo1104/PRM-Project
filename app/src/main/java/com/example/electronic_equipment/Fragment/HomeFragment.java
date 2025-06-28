@@ -7,21 +7,32 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.electronic_equipment.R;
-import com.example.electronic_equipment.activity.DetailActivity;
-import com.example.electronic_equipment.adapter.ProductAdapter;
-import com.example.electronic_equipment.model.Product;
+import com.example.electronic_equipment.activities.DetailActivity;
+import com.example.electronic_equipment.adapters.ProductAdapter;
+import com.example.electronic_equipment.models.Product;
+import com.example.electronic_equipment.networks.ProductApi;
+import com.example.electronic_equipment.networks.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class HomeFragment extends Fragment {
 
     RecyclerView recyclerNewArrival;
-    ProductAdapter productAdapter;
+    ProductAdapter adapter;
+    private Retrofit retrofit;
+    private ProductApi productApi;
     List<Product> productList;
 
     public HomeFragment() {
@@ -31,28 +42,53 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         recyclerNewArrival = view.findViewById(R.id.recyclerNewArrival);
         recyclerNewArrival.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         productList = new ArrayList<>();
-        productList.add(new Product("Nike Air Force", "Men's Road Running Shoes", 167.76, R.drawable.af1));
-        productList.add(new Product("Nike Air Force", "Men's Road Running Shoes", 158.36, R.drawable.af1));
-        productList.add(new Product("Nike Air Force", "Men's Road Running Shoes", 167.76, R.drawable.af1));
-        productList.add(new Product("Nike Air Force", "Men's Road Running Shoes", 158.36, R.drawable.af1));
-
-        productAdapter = new ProductAdapter(getContext(), productList, product -> {
-            Intent intent = new Intent(getActivity(), com.example.electronic_equipment.activity.DetailActivity.class);
-            intent.putExtra("name", product.getName());
-            intent.putExtra("desc", product.getDescription());
-            intent.putExtra("price", product.getPrice());
-            intent.putExtra("image", product.getImageResId());
-            startActivity(intent);
+        adapter = new ProductAdapter(getContext(), productList, true, new ProductAdapter.OnItemActionListener() {
+            @Override
+            public void onDetail(Product product) {
+                Log.d("DEBUG", "Product clicked: " + product.getName());
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("product", product);
+                startActivity(intent);
+            }
         });
 
-        recyclerNewArrival.setAdapter(productAdapter);
+        recyclerNewArrival.setAdapter(adapter);
+
+        Retrofit retrofit = RetrofitClient.getInstance();
+        productApi = retrofit.create(ProductApi.class);
+
+        fetchProductsFromAPI();
 
         return view;
+    }
+
+    private void fetchProductsFromAPI() {
+        Call<List<Product>> call = productApi.getAllProducts();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<com.example.electronic_equipment.models.Product>> response) {
+                Log.d("API", "Fetched " + productList.size() + " products");
+                if (response.isSuccessful() && response.body() != null) {
+                    productList.clear();
+                    productList.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                    Log.d("API", "Fetched " + productList.size() + " products");
+                } else {
+                    Log.e("API_ERROR", "Lỗi phản hồi từ server");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<com.example.electronic_equipment.models.Product>> call, Throwable t) {
+                Log.e("API_ERROR", "Không gọi được API", t);
+            }
+        });
     }
 }
