@@ -10,8 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.electronic_equipment.Fragment.HomeFragment;
-import com.example.electronic_equipment.MainActivity;
+import com.example.electronic_equipment.activities.MainActivity;
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.register.RegisterActivity;
 

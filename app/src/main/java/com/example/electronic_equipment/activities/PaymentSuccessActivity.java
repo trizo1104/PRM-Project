@@ -1,4 +1,4 @@
-package com.example.electronic_equipment.activity;
+package com.example.electronic_equipment.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.electronic_equipment.Fragment.HomeFragment;
-import com.example.electronic_equipment.HomeActivity;
 import com.example.electronic_equipment.R;
-import com.example.electronic_equipment.register.RegisterActivity;
 
 public class PaymentSuccessActivity extends AppCompatActivity {
 

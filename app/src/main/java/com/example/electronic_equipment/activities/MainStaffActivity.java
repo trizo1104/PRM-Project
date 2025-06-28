@@ -59,11 +59,8 @@ public class MainStaffActivity extends AppCompatActivity {
         //init
         productList = new ArrayList<>();
         categoryList = new ArrayList<>();
-        adapter = new ProductAdapter(this, productList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+        adapter = new ProductAdapter(this
+                , productList,false, new ProductAdapter.OnItemActionListener() {
             @Override
             public void onEdit(Product product) {
                 Intent intent = new Intent(MainStaffActivity.this, AddEditProductActivity.class);
@@ -83,6 +80,8 @@ public class MainStaffActivity extends AppCompatActivity {
                         .show();
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
 
         btnAdd.setOnClickListener(v -> {
@@ -215,6 +214,5 @@ public class MainStaffActivity extends AppCompatActivity {
         super.onResume();
         fetchProductsFromAPI();
     }
-
 
 }

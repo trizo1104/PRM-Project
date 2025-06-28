@@ -28,6 +28,7 @@
                 android:src="@drawable/ic_back" />
 
             <TextView
+                android:id="@+id/DetailName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -48,7 +49,8 @@
             android:id="@+id/imgProduct"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:scaleType="centerInside"
+
+            android:background="@drawable/product_image_border"
             android:layout_marginTop="12dp" />
 
         <!-- Flash Sale Timer -->

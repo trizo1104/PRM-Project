@@ -2,41 +2,42 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <!-- Scrollable content -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="60dp"
+        android:padding="16dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <!-- Header -->
             <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:src="@drawable/profile"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/rounded_profile"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile" />
 
                 <TextView
-                    android:text="Hello, Jason 👋"
-                    android:textSize="18sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Hello, Jason 👋"
+                    android:textSize="18sp" />
 
                 <ImageView
 
@@ -46,33 +47,33 @@
 
             <!-- Flash Sale Banner -->
             <LinearLayout
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="NEW SEASON"
-                    android:textStyle="bold"
                     android:textSize="12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:text="FLASH SALE"
-                    android:textStyle="bold"
-                    android:textSize="22sp"
-                    android:layout_marginTop="4dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="FLASH SALE"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
                 <!-- Countdown -->
                 <LinearLayout
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
 
                 </LinearLayout>
 
@@ -86,112 +87,120 @@
 
             <!-- Brand Categories -->
             <HorizontalScrollView
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:importantForAccessibility="no">
+                android:layout_marginTop="16dp"
+                android:importantForAccessibility="no"
+                android:scrollbars="none">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <!-- Sample Brand Icon -->
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginEnd="12dp"
-                        android:src="@drawable/compass"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/compass"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
                     <!-- Repeat for more brands -->
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginEnd="12dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/bell"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginEnd="12dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/grocerystore"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginEnd="12dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/ic_back"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginEnd="12dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/ic_launcher_background"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginEnd="12dp"
-                        android:src="@drawable/af1"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/af1"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginEnd="12dp"
-                        android:src="@drawable/af1"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/af1"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
                 </LinearLayout>
             </HorizontalScrollView>
 
             <!-- New Arrival Section -->
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:text="New Arrival"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:text="New Arrival"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:text="See More"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/darker_gray"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="See More"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- Product Cards -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerNewArrival"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:nestedScrollingEnabled="false" />
+
+
+
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Bottom Navigation -->
 

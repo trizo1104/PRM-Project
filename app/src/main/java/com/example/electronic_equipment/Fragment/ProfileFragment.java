@@ -8,13 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.electronic_equipment.MainActivity;
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.login.LoginActivity;
 import com.example.electronic_equipment.login.SessionManager;

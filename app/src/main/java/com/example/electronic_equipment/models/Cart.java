@@ -1,4 +1,4 @@
-package com.example.electronic_equipment.model;
+package com.example.electronic_equipment.models;
 
 public class Cart {
     private Product product;

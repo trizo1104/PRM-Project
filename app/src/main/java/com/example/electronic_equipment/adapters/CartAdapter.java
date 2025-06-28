@@ -1,5 +1,6 @@
-package com.example.electronic_equipment.adapter;
+package com.example.electronic_equipment.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.electronic_equipment.R;
-import com.example.electronic_equipment.model.Cart;
-import com.example.electronic_equipment.model.Product;
+import com.example.electronic_equipment.models.Cart;
+import com.example.electronic_equipment.models.Product;
 
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-
+    private Context context;
     private List<Cart> cartItems;
     private OnCartChangeListener cartChangeListener;
 
@@ -59,7 +61,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         holder.name.setText(product.getName());
         holder.price.setText("$" + String.format("%.2f", item.getTotalPrice()));
-        holder.img.setImageResource(product.getImageResId());
+        Glide.with(holder.itemView.getContext())
+                .load(product.getImageUrl())
+                .into(holder.img);
+
+
         holder.quantity.setText(String.valueOf(item.getQuantity()));
 
         holder.btnPlus.setOnClickListener(v -> {
