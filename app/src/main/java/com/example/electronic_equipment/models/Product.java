@@ -3,102 +3,101 @@ package com.example.electronic_equipment.models;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    private String ProductId;
-    private String Name;
-    private String Description;
-    private double Price;
-    private int Quantity;
-    private String ImageUrl;
-    private String CreateAt;
-    private boolean IsActive;
-    private String CategoryId;
+    private String productId;
+    private String name;
+    private String description;
+    private double price;
+    private int quantity;
+    private String imageUrl;
+    private String createdAt;
+    private boolean isActive;
+    private String categoryId;
 
 
-    public Product(String productId, String name, String description, double price, int quantity, String imageUrl, String createAt, boolean isActive, String categoryId) {
-        ProductId = productId;
-        Name = name;
-        Description = description;
-        Price = price;
-        Quantity = quantity;
-        ImageUrl = imageUrl;
-        CreateAt = createAt;
-        IsActive = isActive;
-        CategoryId = categoryId;
+    public Product(String ProductId, String Name, String Description, double Price, int Quantity, String ImageUrl, String CreateAt, boolean IsActive, String CategoryId) {
+        productId = ProductId;
+        name = Name;
+        description = Description;
+        price = Price;
+        quantity = Quantity;
+        imageUrl = ImageUrl;
+        createdAt = CreateAt;
+        isActive = IsActive;
+        categoryId = CategoryId;
     }
 
 
 
     // Getter & Setter
     public String getProductId() {
-        return ProductId;
+        return productId;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public String getImageUrl() {
-        return ImageUrl;
+        return imageUrl;
     }
 
     public String getCreateAt() {
-        return CreateAt;
+        return createdAt;
     }
 
     public boolean isActive() {
-        return IsActive;
+        return isActive;
     }
 
     public String getCategoryId() {
-        return CategoryId;
+        return categoryId;
     }
 
-    public void setProductId(String productId) {
-        ProductId = productId;
+    public void setProductId(String ProductId) {
+        productId = ProductId;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setName(String Name) {
+        name = Name;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setDescription(String Description) {
+        description = Description;
     }
 
-    public void setPrice(double price) {
-        Price = price;
+    public void setPrice(double Price) {
+        price = Price;
     }
 
-    public void setQuantity(int quantity) {
-        Quantity = quantity;
+    public void setQuantity(int Quantity) {
+        quantity = Quantity;
     }
 
-    public void setImageUrl(String imageUrl) {
-        ImageUrl = imageUrl;
+    public void setImageUrl(String ImageUrl) {imageUrl = ImageUrl;
     }
 
-    public void setCreateAt(String createAt) {
-        CreateAt = createAt;
+    public void setCreateAt(String CreatedAt) {
+        createdAt = CreatedAt;
     }
 
     public void setActive(boolean active) {
-        IsActive = active;
+        isActive = active;
     }
 
-    public void setCategoryId(String categoryId) {
-        CategoryId = categoryId;
+    public void setCategoryId(String CategoryId) {
+        categoryId = CategoryId;
     }
 
 }

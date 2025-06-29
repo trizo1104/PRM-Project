@@ -3,6 +3,7 @@ package com.example.electronic_equipment.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,17 +16,37 @@ import com.bumptech.glide.Glide;
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.adapters.CartManager;
 import com.example.electronic_equipment.models.Product;
+import com.example.electronic_equipment.networks.CartApi;
+import com.example.electronic_equipment.networks.ProductApi;
+import com.example.electronic_equipment.networks.RetrofitClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class DetailActivity extends AppCompatActivity {
 
-    ImageView imgProduct, btnBack;
-    TextView txtName, txtDesc, txtPrice, DetailName;
+    ImageView imgProduct, btnBack, btnPlus, btnMinus;
+    TextView txtName, txtDesc, txtPrice, DetailName, txtQuantity;
 
     Button btnAddToCart;
+
+    private CartApi cartApi;
+
+    int quantity = 1;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.electronic_equipment.R.layout.activity_detail);
+
+
+        txtQuantity = findViewById(R.id.txtQuantity);
+        btnPlus = findViewById(R.id.btnPlus);
+        btnMinus = findViewById(R.id.btnMinus);
 
         imgProduct = findViewById(R.id.imgProduct);
         txtName = findViewById(R.id.txtName);
@@ -62,9 +83,46 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
 
+            Retrofit retrofit = RetrofitClient.getInstance();
+            cartApi = retrofit.create(CartApi.class);
+
             btnAddToCart.setOnClickListener(v -> {
-                CartManager.getInstance().addToCart(product);
-                Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                String productId = String.valueOf(product.getProductId());
+                String userId = "123"; // Replace with your logged-in user’s ID
+                int qty = quantity;
+
+                cartApi.addToCart(productId, userId, qty).enqueue(new Callback<Void>() {
+
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        Log.d("API", "Fetched " + productId + " products");
+                        Log.d("API", "Fetched " + userId + " products");
+                        Log.d("API", "Fetched " + qty + " products");
+                        if (response.isSuccessful()) {
+                            Toast.makeText(DetailActivity.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(DetailActivity.this, "Thêm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(DetailActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
+
+
+            btnPlus.setOnClickListener(v -> {
+                quantity++;
+                txtQuantity.setText(String.valueOf(quantity));
+            });
+
+            btnMinus.setOnClickListener(v -> {
+                if (quantity > 1) {
+                    quantity--;
+                    txtQuantity.setText(String.valueOf(quantity));
+                }
             });
         }
 

@@ -16,6 +16,7 @@ import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.activities.DetailActivity;
 import com.example.electronic_equipment.adapters.ProductAdapter;
 import com.example.electronic_equipment.models.Product;
+import com.example.electronic_equipment.models.ProductResponse;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
 
@@ -70,25 +71,27 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchProductsFromAPI() {
-        Call<List<Product>> call = productApi.getAllProducts();
-        call.enqueue(new Callback<List<Product>>() {
+        Call<ProductResponse> call = productApi.getAllProducts("");
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<com.example.electronic_equipment.models.Product>> response) {
-                Log.d("API", "Fetched " + productList.size() + " products");
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                Log.d("API", "Fetched " + response + " products");
                 if (response.isSuccessful() && response.body() != null) {
                     productList.clear();
-                    productList.addAll(response.body());
+                    productList.addAll(response.body().getData());
                     adapter.notifyDataSetChanged();
                     Log.d("API", "Fetched " + productList.size() + " products");
+                    Log.d("API", "Fetched " + productList + " products");
                 } else {
                     Log.e("API_ERROR", "Lỗi phản hồi từ server");
                 }
             }
 
             @Override
-            public void onFailure(Call<List<com.example.electronic_equipment.models.Product>> call, Throwable t) {
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Log.e("API_ERROR", "Không gọi được API", t);
             }
         });
     }
+
 }

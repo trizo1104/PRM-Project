@@ -2,6 +2,7 @@ package com.example.electronic_equipment.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,18 @@ import com.example.electronic_equipment.activities.PaymentSuccessActivity;
 import com.example.electronic_equipment.adapters.CartAdapter;
 import com.example.electronic_equipment.adapters.CartManager;
 import com.example.electronic_equipment.models.Cart;
+import com.example.electronic_equipment.models.CartResponse;
+import com.example.electronic_equipment.networks.CartApi;
+import com.example.electronic_equipment.networks.ProductApi;
+import com.example.electronic_equipment.networks.RetrofitClient;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CartFragment extends Fragment {
 
@@ -27,6 +38,8 @@ public class CartFragment extends Fragment {
     private TextView txtTotalPrice;
     private Button btnProcessPayment;
     private ImageView btnBack;
+
+    private CartApi cartApi;
 
     private CartAdapter cartAdapter;
     private ArrayList<Cart> cartList;
@@ -67,6 +80,11 @@ public class CartFragment extends Fragment {
 //        updateTotalPrice();
         onResume();
 
+        Retrofit retrofit = RetrofitClient.getInstance();
+        cartApi = retrofit.create(CartApi.class);
+
+        fetchCartsFromAPI();
+
         return view;
     }
 
@@ -87,5 +105,30 @@ public class CartFragment extends Fragment {
         }
         txtTotalPrice.setText("Total Price\n$" + String.format("%.2f", total));
     }
+
+    private void fetchCartsFromAPI() {
+        Call<CartResponse> call = cartApi.getAllCarts("123");
+        call.enqueue(new Callback<CartResponse>() {
+            @Override
+            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
+                Log.d("API", "Fetched " + response + " products");
+                if (response.isSuccessful() && response.body() != null) {
+                    cartList.clear();
+                    cartList.addAll(response.body().getData());
+                    cartAdapter.notifyDataSetChanged();
+                    Log.d("API", "Fetched " + " products");
+                    Log.d("API", "Fetched " +   " products");
+                } else {
+                    Log.e("API_ERROR", "Lỗi phản hồi từ server");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartResponse> call, Throwable t) {
+                Log.e("API_ERROR", "Không gọi được API", t);
+            }
+        });
+    }
+
 
 }

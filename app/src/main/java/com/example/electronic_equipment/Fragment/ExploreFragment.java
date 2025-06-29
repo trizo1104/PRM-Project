@@ -18,6 +18,7 @@ import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.activities.DetailActivity;
 import com.example.electronic_equipment.adapters.ProductAdapter;
 import com.example.electronic_equipment.models.Product;
+import com.example.electronic_equipment.models.ProductResponse;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
 
@@ -51,6 +52,7 @@ public class ExploreFragment extends Fragment {
         retrofit = RetrofitClient.getInstance();
         productApi = retrofit.create(ProductApi.class);
         recyclerNewArrival = view.findViewById(R.id.recyclerNewArrival);
+        recyclerNewArrival.setLayoutManager(new LinearLayoutManager(getContext()));
         productList = new ArrayList<>();
 
 //        setupRecyclerView();
@@ -61,46 +63,55 @@ public class ExploreFragment extends Fragment {
     }
 
     private void fetchProductsFromAPI() {
-        Call<List<com.example.electronic_equipment.models.Product>> call = productApi.getAllProducts();
+        String searchKeyword = editSearch.getText().toString();
 
-        call.enqueue(new Callback<List<com.example.electronic_equipment.models.Product>>() {
+        Call<ProductResponse> call = productApi.getAllProducts(searchKeyword);
 
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     productList.clear();
-                    productList.addAll(response.body());
+                    productList.addAll(response.body().getData());
 
-                    // Khởi tạo adapter nếu đang null
                     if (adapter == null) {
-                        adapter = new ProductAdapter(getContext(), productList, true, new ProductAdapter.OnItemActionListener() {
-                            @Override
-                            public void onDetail(Product product) {
-                                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                                intent.putExtra("product", product);
-                                startActivity(intent);
-                            }
-                        });
+                        adapter = new ProductAdapter(
+                                getContext(),
+                                productList,
+                                true,
+                                new ProductAdapter.OnItemActionListener() {
+                                    @Override
+                                    public void onDetail(Product product) {
+                                        Log.d("DEBUG", "Product clicked: " + product.getName());
+                                        Intent intent = new Intent(getActivity(), DetailActivity.class);
+                                        intent.putExtra("product", product);
+                                        startActivity(intent);
+                                    }}
+                        );
+
                         recyclerNewArrival.setAdapter(adapter);
+
+
                     } else {
                         adapter.notifyDataSetChanged();
                     }
+                    Log.d("API", "Fetched " + productList.size() + " products");
                 } else {
                     Log.e("API_ERROR", "Lỗi phản hồi từ server");
                 }
             }
 
-
             @Override
-            public void onFailure(Call<List<com.example.electronic_equipment.models.Product>> call, Throwable t) {
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Log.e("API_ERROR", "Không gọi được API", t);
             }
         });
     }
 
+
 //    private void setupRecyclerView() {
 //        productList = new ArrayList<>();
-//        // Dummy data
+//        // Dummy datas
 //        productList.add(new Product("Nike Air Max", "Running shoes", 150, R.drawable.af1));
 //        productList.add(new Product("Adidas UltraBoost", "High performance", 180, R.drawable.af1));
 //        // ... add more
@@ -125,7 +136,7 @@ public class ExploreFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                adapter.filter(s.toString());
+                fetchProductsFromAPI();
             }
 
             @Override

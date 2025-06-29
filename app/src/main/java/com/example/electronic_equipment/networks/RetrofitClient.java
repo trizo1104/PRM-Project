@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "https://6672269ae083e62ee43e1f64.mockapi.io/";
+    private static final String BASE_URL = "https://projectprm392-2.onrender.com/api/";
     private static Retrofit retrofit;
 
     public static Retrofit getInstance() {

@@ -17,6 +17,7 @@ import com.example.electronic_equipment.adapters.ProductAdapter;
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.models.Category;
 import com.example.electronic_equipment.models.Product;
+import com.example.electronic_equipment.models.ProductResponse;
 import com.example.electronic_equipment.networks.CategoryApi;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
@@ -115,22 +116,22 @@ public class MainStaffActivity extends AppCompatActivity {
 
 
     private void fetchProductsFromAPI() {
-        Call<List<Product>> call = productApi.getAllProducts();
-
-        call.enqueue(new Callback<List<Product>>() {
+        Call<ProductResponse> call = productApi.getAllProducts("");
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     productList.clear();
-                    productList.addAll(response.body());
+                    productList.addAll(response.body().getData());
                     adapter.notifyDataSetChanged();
+                    Log.d("API", "Fetched " + productList.size() + " products");
                 } else {
                     Log.e("API_ERROR", "Lỗi phản hồi từ server");
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Log.e("API_ERROR", "Không gọi được API", t);
             }
         });
@@ -165,7 +166,7 @@ public class MainStaffActivity extends AppCompatActivity {
                             if (selectedCategoryId.equals("all")) {
                                 fetchProductsFromAPI();
                             } else {
-                                fetchProductsByCategory(selectedCategoryId); // lọc theo category
+//                                fetchProductsByCategory(selectedCategoryId); // lọc theo category
                             }
                         }
 
@@ -184,7 +185,7 @@ public class MainStaffActivity extends AppCompatActivity {
     }
 
 
-    private void fetchProductsByCategory(String categoryId) {
+   /* private void fetchProductsByCategory(String categoryId) {
         productApi.getAllProducts().enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -206,7 +207,7 @@ public class MainStaffActivity extends AppCompatActivity {
                 Log.e("API_ERROR", "Lỗi filter sản phẩm", t);
             }
         });
-    }
+    }*/
 
 
     @Override

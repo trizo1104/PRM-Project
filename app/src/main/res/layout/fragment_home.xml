@@ -105,7 +105,7 @@
                         android:layout_marginEnd="12dp"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/compass"
+                        android:src="@drawable/computer"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
                     <!-- Repeat for more brands -->
                     <com.google.android.material.imageview.ShapeableImageView
@@ -114,7 +114,7 @@
                         android:layout_marginEnd="12dp"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bell"
+                        android:src="@drawable/mouse"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -123,7 +123,7 @@
                         android:layout_marginEnd="12dp"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/grocerystore"
+                        android:src="@drawable/office_chair"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -132,7 +132,7 @@
                         android:layout_marginEnd="12dp"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_back"
+                        android:src="@drawable/speaker"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -141,7 +141,7 @@
                         android:layout_marginEnd="12dp"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_launcher_background"
+                        android:src="@drawable/monitor"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -150,7 +150,7 @@
                         android:layout_marginEnd="12dp"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/af1"
+                        android:src="@drawable/keyboard"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -159,7 +159,7 @@
                         android:layout_marginEnd="12dp"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/af1"
+                        android:src="@drawable/headphones"
                         app:shapeAppearanceOverlay="@style/CircleImageShape" />
                 </LinearLayout>
             </HorizontalScrollView>
