@@ -116,7 +116,7 @@ public class MainStaffActivity extends AppCompatActivity {
 
 
     private void fetchProductsFromAPI() {
-        Call<ProductResponse> call = productApi.getAllProducts("");
+        Call<ProductResponse> call = productApi.getAllProducts("", 0, 3);
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {

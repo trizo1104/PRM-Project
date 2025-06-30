@@ -65,7 +65,7 @@ public class ExploreFragment extends Fragment {
     private void fetchProductsFromAPI() {
         String searchKeyword = editSearch.getText().toString();
 
-        Call<ProductResponse> call = productApi.getAllProducts(searchKeyword);
+        Call<ProductResponse> call = productApi.getAllProducts(searchKeyword, 0, 3);
 
         call.enqueue(new Callback<ProductResponse>() {
             @Override

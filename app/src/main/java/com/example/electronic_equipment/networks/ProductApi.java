@@ -17,7 +17,8 @@ import retrofit2.http.Query;
 
 public interface ProductApi {
     @GET("Products/search")
-    Call<ProductResponse> getAllProducts(@Query("name") String name);
+    Call<ProductResponse> getAllProducts(@Query("name") String name, @Query("pageIndex") int page,
+                                         @Query("pageSize") int limit);
 
     @POST("product")
     Call<Void> addProduct(@Body Product product);
