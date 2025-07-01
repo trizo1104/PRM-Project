@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="#E3F2FD"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:fitsSystemWindows="true">
 
     <!-- Back arrow and Title -->
     <LinearLayout
