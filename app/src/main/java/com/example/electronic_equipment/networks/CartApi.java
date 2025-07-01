@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -20,6 +21,9 @@ public interface CartApi {
 
     @GET("CartItems/cart/{userId}")
     Call<CartResponse> getAllCarts(@Path("userId") String userId);
+
+    @PUT("CartItems/{productId}/decrease-to-quantity")
+    Call<CartResponse> decreaseCart(@Path("productId") String productId, @Query("userId") String userId, @Query("quantity") int quantity);
 }
 
 

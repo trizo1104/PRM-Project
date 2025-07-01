@@ -35,6 +35,14 @@ public class HomeFragment extends Fragment {
     private Retrofit retrofit;
     private ProductApi productApi;
     List<Product> productList;
+    private int currentPage = 0;
+    private final int pageSize = 3;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+
+    private final int visibleThreshold = 4;
+
+    private int lastRequestedPage = -1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,36 +70,73 @@ public class HomeFragment extends Fragment {
 
         recyclerNewArrival.setAdapter(adapter);
 
+        recyclerNewArrival.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@androidx.annotation.NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+
+                if (layoutManager != null) {
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                    if (!isLoading && !isLastPage) {
+                        if ((totalItemCount - visibleItemCount) <= (firstVisibleItemPosition + visibleThreshold)) {
+                            if (currentPage > lastRequestedPage) {
+                                lastRequestedPage = currentPage;
+                                isLoading = true;
+                                fetchProductsFromAPI(currentPage);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
         Retrofit retrofit = RetrofitClient.getInstance();
         productApi = retrofit.create(ProductApi.class);
 
-        fetchProductsFromAPI();
+        fetchProductsFromAPI(currentPage);
 
         return view;
     }
 
-    private void fetchProductsFromAPI() {
-        Call<ProductResponse> call = productApi.getAllProducts("");
+    private void fetchProductsFromAPI(int page) {
+        isLoading = true;
+
+        Call<ProductResponse> call = productApi.getAllProducts("", page, pageSize);
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                Log.d("API", "Fetched " + response + " products");
+                isLoading = false;
                 if (response.isSuccessful() && response.body() != null) {
-                    productList.clear();
-                    productList.addAll(response.body().getData());
-                    adapter.notifyDataSetChanged();
-                    Log.d("API", "Fetched " + productList.size() + " products");
-                    Log.d("API", "Fetched " + productList + " products");
+                    List<Product> newProducts = response.body().getData();
+                    if (newProducts != null && !newProducts.isEmpty()) {
+                        productList.addAll(newProducts);
+                        adapter.notifyDataSetChanged();
+                        currentPage++;
+                    }
+
+                    // Check if we've loaded all pages
+//                    int totalItems = response.body().getTotalItems(); // example
+//                    if (productList.size() >= totalItems) {
+//                        isLastPage = true;
+//                    }
                 } else {
-                    Log.e("API_ERROR", "Lỗi phản hồi từ server");
+                    Log.e("API_ERROR", "Server returned an error");
                 }
             }
 
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
-                Log.e("API_ERROR", "Không gọi được API", t);
+                isLoading = false;
+                Log.e("API_ERROR", "API call failed", t);
             }
         });
     }
+
 
 }

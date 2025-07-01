@@ -29,6 +29,7 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.MainStaffActivity" />
         <activity android:name=".activities.AddEditProductActivity" />
+        <activity android:name=".activities.OrdersActivity" />
 
     </application>
 
