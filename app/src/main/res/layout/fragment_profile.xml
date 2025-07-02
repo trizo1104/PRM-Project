@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3F2FD">
+    android:background="#E3F2FD"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,16 +16,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingVertical="8dp">
 
             <ImageView
                 android:id="@+id/btnBack"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_back"
-                android:contentDescription="Back" />
+                android:contentDescription="Back"
+                android:src="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="0dp"
@@ -90,9 +91,9 @@
                 android:id="@+id/optionUpi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="12dp"
-                android:gravity="center_vertical">
+                android:paddingVertical="12dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -105,8 +106,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="UPI ID"
-                    android:textSize="16sp"
-                    android:textColor="#333" />
+                    android:textColor="#333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
@@ -118,9 +119,9 @@
                 android:id="@+id/optionQr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="12dp"
-                android:gravity="center_vertical">
+                android:paddingVertical="12dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -133,8 +134,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="QR Code"
-                    android:textSize="16sp"
-                    android:textColor="#333" />
+                    android:textColor="#333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
@@ -146,9 +147,9 @@
                 android:id="@+id/optionPayment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="12dp"
-                android:gravity="center_vertical">
+                android:paddingVertical="12dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -161,8 +162,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Payment Method"
-                    android:textSize="16sp"
-                    android:textColor="#333" />
+                    android:textColor="#333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
@@ -174,9 +175,9 @@
                 android:id="@+id/optionOrders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="12dp"
-                android:gravity="center_vertical">
+                android:paddingVertical="12dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -189,8 +190,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Orders"
-                    android:textSize="16sp"
-                    android:textColor="#333" />
+                    android:textColor="#333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
@@ -202,9 +203,9 @@
                 android:id="@+id/optionSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="12dp"
-                android:gravity="center_vertical">
+                android:paddingVertical="12dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -217,8 +218,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Settings"
-                    android:textSize="16sp"
-                    android:textColor="#333" />
+                    android:textColor="#333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
@@ -230,9 +231,9 @@
                 android:id="@+id/optionHelp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="12dp"
-                android:gravity="center_vertical">
+                android:paddingVertical="12dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -245,21 +246,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Help"
-                    android:textSize="16sp"
-                    android:textColor="#333" />
+                    android:textColor="#333"
+                    android:textSize="16sp" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/logoutButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="#FF5252"
-                android:text="Logout"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-
         </LinearLayout>
+
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#FF5252"
+            android:text="Logout"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>
