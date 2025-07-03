@@ -1,84 +1,3 @@
-//package com.example.electronic_equipment.adapters;
-//
-//import com.example.electronic_equipment.model.Cart;
-//import com.example.electronic_equipment.model.Product;
-//
-//import java.util.ArrayList;
-//import java.util.Iterator;
-//import java.util.List;
-//
-//public class CartManager {
-//    private static CartManager instance;
-//    private final List<Cart> cartItems = new ArrayList<>();
-//
-//    private CartManager() {
-//    }
-//
-//    public static CartManager getInstance() {
-//        if (instance == null) {
-//            instance = new CartManager();
-//        }
-//        return instance;
-//    }
-//
-//    // Add or increase quantity
-//    public void addToCart(Product product) {
-//        for (Cart item : cartItems) {
-//            if (item.getProduct().getId() == product.getId()) {
-//                item.setQuantity(item.getQuantity() + 1);
-//                return;
-//            }
-//        }
-//        cartItems.add(new Cart(product, 1));
-//    }
-//
-//    // Get all items
-//    public List<Cart> getCartItems() {
-//        return new ArrayList<>(cartItems); // prevent external modification
-//    }
-//
-//    // Get total price
-//    public double getTotalPrice() {
-//        double total = 0;
-//        for (Cart item : cartItems) {
-//            total += item.getTotalPrice();
-//        }
-//        return total;
-//    }
-//
-//    // Update quantity
-//    public void updateQuantity(Product product, int quantity) {
-//        for (Cart item : cartItems) {
-//            if (item.getProduct().getId() == product.getId()) {
-//                if (quantity <= 0) {
-//                    removeFromCart(product);
-//                } else {
-//                    item.setQuantity(quantity);
-//                }
-//                return;
-//            }
-//        }
-//    }
-//
-//    // Remove item
-//    public void removeFromCart(Product product) {
-//        Iterator<Cart> iterator = cartItems.iterator();
-//        while (iterator.hasNext()) {
-//            Cart item = iterator.next();
-//            if (item.getProduct().getId() == product.getId()) {
-//                iterator.remove();
-//                return;
-//            }
-//        }
-//    }
-//
-//    // Clear all items
-//    public void clearCart() {
-//        cartItems.clear();
-//    }
-//}
-
-
 package com.example.electronic_equipment.adapters;
 
 import com.example.electronic_equipment.models.Cart;
@@ -87,6 +6,7 @@ import com.example.electronic_equipment.models.Product;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 public class CartManager {
     private static CartManager instance;
@@ -107,12 +27,23 @@ public class CartManager {
         if (product == null || product.getProductId() == null) return;
 
         for (Cart item : cartItems) {
-            if (item.getProduct().getProductId().equals(product.getProductId())) {
+            if (item.getProductId().equals(product.getProductId())) {
                 item.setQuantity(item.getQuantity() + 1);
                 return;
             }
         }
-        cartItems.add(new Cart(product, 1));
+
+        // Nếu chưa tồn tại, tạo mới Cart
+        Cart newItem = new Cart(
+                UUID.randomUUID().toString(),           // cartItemId
+                product.getProductId(),                 // productId
+                product.getName(),               // productName
+                product.getPrice(),                     // price
+                1,                                      // quantity
+                java.time.ZonedDateTime.now().toString(),// addedAt
+                product.getImageUrl()
+        );
+        cartItems.add(newItem);
     }
 
     // Lấy danh sách sản phẩm trong giỏ
@@ -130,13 +61,13 @@ public class CartManager {
     }
 
     // Cập nhật số lượng sản phẩm
-    public void updateQuantity(Product product, int quantity) {
-        if (product == null || product.getProductId() == null) return;
+    public void updateQuantity(String productId, int quantity) {
+        if (productId == null) return;
 
         for (Cart item : cartItems) {
-            if (item.getProduct().getProductId().equals(product.getProductId())) {
+            if (item.getProductId().equals(productId)) {
                 if (quantity <= 0) {
-                    removeFromCart(product);
+                    removeFromCart(productId);
                 } else {
                     item.setQuantity(quantity);
                 }
@@ -146,13 +77,13 @@ public class CartManager {
     }
 
     // Xoá sản phẩm khỏi giỏ
-    public void removeFromCart(Product product) {
-        if (product == null || product.getProductId() == null) return;
+    public void removeFromCart(String productId) {
+        if (productId == null) return;
 
         Iterator<Cart> iterator = cartItems.iterator();
         while (iterator.hasNext()) {
             Cart item = iterator.next();
-            if (item.getProduct().getProductId().equals(product.getProductId())) {
+            if (item.getProductId().equals(productId)) {
                 iterator.remove();
                 return;
             }

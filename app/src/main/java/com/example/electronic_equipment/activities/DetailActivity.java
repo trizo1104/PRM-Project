@@ -19,6 +19,7 @@ import com.example.electronic_equipment.models.Product;
 import com.example.electronic_equipment.networks.CartApi;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
+import com.example.electronic_equipment.utils.SessionManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -85,19 +86,22 @@ public class DetailActivity extends AppCompatActivity {
 
             Retrofit retrofit = RetrofitClient.getInstance();
             cartApi = retrofit.create(CartApi.class);
+            SessionManager sessionManager = new SessionManager(this);
 
             btnAddToCart.setOnClickListener(v -> {
                 String productId = String.valueOf(product.getProductId());
-                String userId = "123"; // Replace with your logged-in user’s ID
+
+                String userId = sessionManager.getUserId();// Replace with your logged-in user’s ID
                 int qty = quantity;
+                Log.d("API", "Fetched " + productId + " products");
+                Log.d("API", "Fetched " + userId + " products");
+                Log.d("API", "Fetched " + qty + " products");
 
                 cartApi.addToCart(productId, userId, qty).enqueue(new Callback<Void>() {
 
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Log.d("API", "Fetched " + productId + " products");
-                        Log.d("API", "Fetched " + userId + " products");
-                        Log.d("API", "Fetched " + qty + " products");
+                        Log.d("API", "Fetched " + response + " products");
                         if (response.isSuccessful()) {
                             Toast.makeText(DetailActivity.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
                         } else {

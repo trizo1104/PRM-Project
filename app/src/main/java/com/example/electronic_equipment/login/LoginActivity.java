@@ -199,16 +199,21 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
 
                     String token = loginResponse.getToken();
+                    String userId = loginResponse.getUserId();
+
                     Log.d("Token", "onResponse: token " + token);
+                    Log.d("UserId", "onResponse: userId " + userId);
+
                     if (token != null) {
                         JWT jwt = new JWT(token);
-
                         String role = jwt.getClaim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role").asString();
-
                         Log.d("JWT", "Role from token: " + role);
 
-
                         sessionManager.saveSession(token, role);
+
+                        if (userId != null) {
+                            sessionManager.saveUserId(userId);
+                        }
 
                         if ("Staff".equalsIgnoreCase(role)) {
                             startActivity(new Intent(LoginActivity.this, MainStaffActivity.class));
@@ -226,6 +231,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                 }
             }
+
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {

@@ -22,7 +22,7 @@ public interface CartApi {
     @GET("CartItems/cart/{userId}")
     Call<CartResponse> getAllCarts(@Path("userId") String userId);
 
-    @PUT("CartItems/{productId}/decrease-to-quantity")
+    @PUT("CartItems/{productId}/decrease-cart-quantity")
     Call<CartResponse> decreaseCart(@Path("productId") String productId, @Query("userId") String userId, @Query("quantity") int quantity);
 }
 

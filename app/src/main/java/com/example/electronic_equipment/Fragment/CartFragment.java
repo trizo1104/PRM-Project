@@ -23,6 +23,7 @@ import com.example.electronic_equipment.models.CartResponse;
 import com.example.electronic_equipment.networks.CartApi;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
+import com.example.electronic_equipment.utils.SessionManager;
 
 import java.util.ArrayList;
 
@@ -82,8 +83,10 @@ public class CartFragment extends Fragment {
 
         Retrofit retrofit = RetrofitClient.getInstance();
         cartApi = retrofit.create(CartApi.class);
+        SessionManager sessionManager = new SessionManager(getContext());
+        String userId = sessionManager.getUserId();
 
-        fetchCartsFromAPI();
+        fetchCartsFromAPI(userId);
 
         return view;
     }
@@ -93,7 +96,8 @@ public class CartFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        cartAdapter = new CartAdapter(cartList, this::updateTotalPrice);
+        CartAdapter.OnCartChangeListener listener = this::updateTotalPrice;
+        cartAdapter = new CartAdapter(requireContext(), cartList, listener);
         recyclerCartItems.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerCartItems.setAdapter(cartAdapter);
     }
@@ -106,8 +110,8 @@ public class CartFragment extends Fragment {
         txtTotalPrice.setText("Total Price\n$" + String.format("%.2f", total));
     }
 
-    private void fetchCartsFromAPI() {
-        Call<CartResponse> call = cartApi.getAllCarts("123");
+    private void fetchCartsFromAPI(String userId) {
+        Call<CartResponse> call = cartApi.getAllCarts(userId);
         call.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
@@ -116,8 +120,8 @@ public class CartFragment extends Fragment {
                     cartList.clear();
                     cartList.addAll(response.body().getData());
                     cartAdapter.notifyDataSetChanged();
+                    updateTotalPrice(); // ✅ add this line!
                     Log.d("API", "Fetched " + " products");
-                    Log.d("API", "Fetched " +   " products");
                 } else {
                     Log.e("API_ERROR", "Lỗi phản hồi từ server");
                 }
@@ -129,6 +133,7 @@ public class CartFragment extends Fragment {
             }
         });
     }
+
 
 
 }
