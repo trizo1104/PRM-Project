@@ -156,6 +156,7 @@ import com.example.electronic_equipment.models.LoginRequest;
 import com.example.electronic_equipment.models.LoginResponse;
 import com.example.electronic_equipment.networks.AuthAPI;
 import com.example.electronic_equipment.networks.RetrofitClient;
+import com.example.electronic_equipment.register.RegisterActivity;
 import com.example.electronic_equipment.utils.SessionManager;
 
 import okhttp3.ResponseBody;
@@ -164,6 +165,7 @@ import retrofit2.*;
 public class LoginActivity extends AppCompatActivity {
 
     EditText emailEditText, passwordEditText;
+    TextView registerLink;
     Button loginButton;
     SessionManager sessionManager;
 
@@ -171,6 +173,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         sessionManager = new SessionManager(this);
         if (sessionManager.isLoggedIn()) {
@@ -181,6 +185,12 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
+        registerLink = findViewById(R.id.registerLink);
+
+        registerLink.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        });
 
         loginButton.setOnClickListener(view -> performLogin());
     }
