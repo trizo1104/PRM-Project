@@ -1,20 +1,26 @@
 package com.example.electronic_equipment.models;
 
 public class Category {
-    private String CategoryId;
-    private String Name;
+    private String categoryId;
+    private String name;
 
-    public Category(String CategoryId, String Name) {
-        this.CategoryId = CategoryId;
-        this.Name = Name;
+    public Category(String categoryId, String name) {
+        this.categoryId = categoryId;
+        this.name = name;
     }
 
-    public String getCategoryId() { return CategoryId; }
-    public String getName() { return Name; }
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     @Override
     public String toString() {
-        return Name;
+        return name;
     }
 }
+
 

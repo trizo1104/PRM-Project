@@ -1,143 +1,3 @@
-/// /package com.example.electronic_equipment.login;
-/// /
-/// /import android.content.Intent;
-/// /import android.os.Bundle;
-/// /import android.util.Log;
-/// /import android.widget.Button;
-/// /import android.widget.EditText;
-/// /import android.widget.TextView;
-/// /import android.widget.Toast;
-/// /
-/// /import androidx.appcompat.app.AppCompatActivity;
-/// /
-/// /import com.example.electronic_equipment.activities.MainActivity;
-/// /import com.example.electronic_equipment.R;
-/// /import com.example.electronic_equipment.register.RegisterActivity;
-/// /
-/// /public class LoginActivity extends AppCompatActivity {
-/// /
-/// /    EditText emailEditText, passwordEditText;
-/// /    Button loginButton;
-/// /    TextView registerLink;
-/// /
-/// /    SessionManager sessionManager;
-/// /
-/// /    @Override
-/// /    protected void onCreate(Bundle savedInstanceState) {
-/// /        super.onCreate(savedInstanceState);
-/// /        Log.d("DEBUG", "LoginActivity opened");
-/// /
-/// /        sessionManager = new SessionManager(this);
-/// /        if (sessionManager.isLoggedIn()) {
-/// /            Log.d("DEBUG", "LoginActivity islogin");
-/// /            startActivity(new Intent(this, MainActivity.class));
-/// /            finish();
-/// /            return;
-/// /        }
-/// /
-/// /        setContentView(R.layout.activity_login);
-/// /
-/// /        emailEditText = findViewById(R.id.emailEditText);
-/// /        passwordEditText = findViewById(R.id.passwordEditText);
-/// /        loginButton = findViewById(R.id.loginButton);
-/// /        registerLink = findViewById(R.id.registerLink);
-/// /
-/// /
-/// /
-/// /        loginButton.setOnClickListener(v -> {
-/// /            String email = emailEditText.getText().toString();
-/// /            String password = passwordEditText.getText().toString();
-/// /
-/// /            // TODO: validate and check credentials
-/// /            if (!email.isEmpty() && !password.isEmpty()) {
-/// /                // Pretend login is always successful
-/// /                sessionManager.setLogin();
-/// /                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-/// /                startActivity(new Intent(this, MainActivity.class));
-/// /                finish(); // finish LoginActivity
-/// /            } else {
-/// /                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-/// /            }
-/// /        });
-/// /
-/// /        registerLink.setOnClickListener(v -> {
-/// /            startActivity(new Intent(this, RegisterActivity.class));
-/// /        });
-/// /    }
-/// /}
-//
-//
-//package com.example.electronic_equipment.login;
-//
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.text.TextUtils;
-//import android.util.Log;
-//import android.widget.Button;
-//import android.widget.EditText;
-//import android.widget.TextView;
-//import android.widget.Toast;
-//
-//import androidx.appcompat.app.AppCompatActivity;
-//
-//import com.example.electronic_equipment.R;
-//import com.example.electronic_equipment.activities.MainActivity;
-//import com.example.electronic_equipment.register.RegisterActivity;
-//
-//public class LoginActivity extends AppCompatActivity {
-//
-//    private EditText emailEditText, passwordEditText;
-//    private Button loginButton;
-//    private TextView registerLink;
-//
-//    private SessionManager sessionManager;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        sessionManager = new SessionManager(getApplicationContext());
-//
-//        if (sessionManager.isLoggedIn()) {
-//            Log.d("LoginActivity", "Already logged in, redirecting...");
-//            goToMain();
-//            return;
-//        }
-//
-//        setContentView(R.layout.activity_login);
-//
-//        emailEditText = findViewById(R.id.emailEditText);
-//        passwordEditText = findViewById(R.id.passwordEditText);
-//        loginButton = findViewById(R.id.loginButton);
-//        registerLink = findViewById(R.id.registerLink);
-//
-//        loginButton.setOnClickListener(v -> {
-//            String email = emailEditText.getText().toString().trim();
-//            String password = passwordEditText.getText().toString().trim();
-//
-//            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-//                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
-//            } else {
-//                // Đây là login giả, bạn nên thay bằng check API sau này
-//                sessionManager.setLogin();
-//                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-//                goToMain();
-//            }
-//        });
-//
-//        registerLink.setOnClickListener(v ->
-//                startActivity(new Intent(this, RegisterActivity.class))
-//        );
-//    }
-//
-//    private void goToMain() {
-//        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
-//}
-
-
 package com.example.electronic_equipment.login;
 
 import android.content.Intent;
@@ -174,14 +34,25 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
         sessionManager = new SessionManager(this);
+        Log.d("Session", "Token = " + sessionManager.getToken());
+        Log.d("Session", "isLoggedIn = " + sessionManager.isLoggedIn());
+
         if (sessionManager.isLoggedIn()) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish(); // Không cho quay lại login
+            String token = sessionManager.getToken();
+            JWT jwt = new JWT(token);
+            String role = jwt.getClaim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role").asString();
+
+            if ("Staff".equalsIgnoreCase(role)) {
+                startActivity(new Intent(this, MainStaffActivity.class));
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+            }
+
+            finish(); // Đóng LoginActivity
             return;
         }
+
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);

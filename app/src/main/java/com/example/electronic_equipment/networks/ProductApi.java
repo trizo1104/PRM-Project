@@ -1,6 +1,7 @@
 package com.example.electronic_equipment.networks;
 
 
+import com.example.electronic_equipment.models.Category;
 import com.example.electronic_equipment.models.Product;
 import com.example.electronic_equipment.models.ProductResponse;
 
@@ -17,16 +18,24 @@ import retrofit2.http.Query;
 
 public interface ProductApi {
     @GET("Products/search")
-    Call<ProductResponse> getAllProducts(@Query("name") String name, @Query("pageIndex") int page,
+    Call<ProductResponse> getSearchProduct(@Query("name") String name, @Query("pageIndex") int page,
+                                           @Query("pageSize") int limit);
+
+    @GET("Products")
+    Call<ProductResponse> getAllProducts(@Query("pageIndex") int page,
                                          @Query("pageSize") int limit);
 
-    @POST("product")
+    @GET("Products/category/{categoryId}")
+    Call<ProductResponse> getProductsByCategory(@Path("categoryId") String categoryId, @Query("pageIndex") int page,
+                                                @Query("pageSize") int limit);
+
+    @POST("Products")
     Call<Void> addProduct(@Body Product product);
 
-    @PUT("product/{id}")
+    @PUT("Products/{id}")
     Call<Void> updateProduct(@Path("id") String id, @Body Product product);
 
-    @DELETE("product/{id}")
+    @DELETE("Products/{id}")
     Call<Void> deleteProduct(@Path("id") String id);
 }
 
