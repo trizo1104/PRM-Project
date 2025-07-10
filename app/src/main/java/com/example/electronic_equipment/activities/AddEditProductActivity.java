@@ -13,6 +13,7 @@ import com.example.electronic_equipment.models.Product;
 import com.example.electronic_equipment.networks.CategoryApi;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,9 +36,12 @@ public class AddEditProductActivity extends AppCompatActivity {
     Button btnSave;
     boolean isEditMode = false;
     Product editProduct = null;
-    String productId = null;
+    ImageView btnBack;
+    TextView tvTitle;
     private Retrofit retrofit;
     private ProductApi productApi;
+
+    private Switch switchIsActive;
 
 
     @Override
@@ -45,6 +49,7 @@ public class AddEditProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_form);
 
+        tvTitle = findViewById(R.id.tvTitle);
         edtName = findViewById(R.id.edtName);
         edtPrice = findViewById(R.id.edtPrice);
         edtImageUrl = findViewById(R.id.edtImageUrl);
@@ -52,6 +57,8 @@ public class AddEditProductActivity extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.spinnerCategory);
         edtQuantity = findViewById(R.id.edtQuantity);
         edtDescription = findViewById(R.id.edtDescription);
+        switchIsActive = findViewById(R.id.switchIsActive);
+        btnBack = findViewById(R.id.btnBack);
 
         retrofit = RetrofitClient.getInstance();
         productApi = retrofit.create(ProductApi.class);
@@ -63,12 +70,14 @@ public class AddEditProductActivity extends AppCompatActivity {
 
 
         if (isEditMode) {
+            tvTitle.setText("Cập nhật sản phẩm");
             edtName.setText(editProduct.getName());
             edtPrice.setText(String.valueOf(editProduct.getPrice()));
             edtImageUrl.setText(editProduct.getImageUrl());
             edtQuantity.setText(String.valueOf(editProduct.getQuantity()));
             edtDescription.setText(editProduct.getDescription());
             selectedCategoryId = editProduct.getCategoryId();
+            switchIsActive.setChecked(editProduct.isActive());
         }
 
 
@@ -82,8 +91,7 @@ public class AddEditProductActivity extends AppCompatActivity {
             Date now = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String createAt = sdf.format(now);
-            Boolean isActive = false;
-
+            boolean isActive = switchIsActive.isChecked();
 
             try {
                 double parsedPrice = Double.parseDouble(price);
@@ -108,58 +116,12 @@ public class AddEditProductActivity extends AppCompatActivity {
                 );
 
                 Log.d("DEBUG", "Calling PUT with ID: " + productId);
-                Log.d("DEBUG", "Full URL: https://67078cefa0e04071d22acf43.mockapi.io/products/" + productId);
 
                 if (isEditMode) {
-                    Toast.makeText(this, "Đang cập nhật sản phẩm...", Toast.LENGTH_SHORT).show();
-                    productApi.updateProduct(productId, product).enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(AddEditProductActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                                try {
-                                    String errorBody = response.errorBody().string();
-                                    Log.e("API_ERROR", "Lỗi server code=" + response.code() + ", body=" + errorBody);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(AddEditProductActivity.this, "Cập nhật thất bại: " + response.code(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Log.e("API_ERROR", "API cập nhật lỗi", t);
-                            Toast.makeText(AddEditProductActivity.this, "Gọi API cập nhật thất bại", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    Log.d("DEBUG", "Product JSON:\n" + new Gson().toJson(product));
+                    updateProduct(productId, product);
                 } else {
-                    Toast.makeText(this, "Đang thêm sản phẩm...", Toast.LENGTH_SHORT).show();
-                    productApi.addProduct(product).enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(AddEditProductActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                                try {
-                                    String errorBody = response.errorBody().string();
-                                    Log.e("API_ERROR", "Lỗi server code=" + response.code() + ", body=" + errorBody);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(AddEditProductActivity.this, "Thêm thất bại: " + response.code(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Log.e("API_ERROR", "API thêm lỗi", t);
-                            Toast.makeText(AddEditProductActivity.this, "Gọi API thêm thất bại", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    addProduct(product);
                 }
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "Giá hoặc số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
@@ -167,15 +129,71 @@ public class AddEditProductActivity extends AppCompatActivity {
 
         });
 
+        btnBack.setOnClickListener(v -> finish());
+
     }
 
 
-    private void loadCategories() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://67078cefa0e04071d22acf43.mockapi.io/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    private void addProduct(Product product) {
+        Toast.makeText(this, "Đang thêm sản phẩm...", Toast.LENGTH_SHORT).show();
+        productApi.addProduct(product).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("API_ADD", "Phản hồi: " + response.code());
+                if (response.isSuccessful()) {
+                    Toast.makeText(AddEditProductActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    try {
+                        String error = response.errorBody().string();
+                        Log.e("API_ADD", "Lỗi server: " + error);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(AddEditProductActivity.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("API_ADD", "Thêm lỗi", t);
+                Toast.makeText(AddEditProductActivity.this, "Gọi API thêm thất bại", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateProduct(String id, Product product) {
+        Toast.makeText(this, "Đang cập nhật sản phẩm...", Toast.LENGTH_SHORT).show();
+
+        Log.d("DEBUG", "Gửi PUT Product ID: " + id);
+        Log.d("DEBUG", "Dữ liệu gửi lên: " + new Gson().toJson(product));
+        productApi.updateProduct(id, product).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("API_UPDATE", "Phản hồi: " + response.code());
+                if (response.isSuccessful()) {
+                    Toast.makeText(AddEditProductActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    try {
+                        String error = response.errorBody().string();
+                        Log.e("API_UPDATE", "Lỗi server: " + error);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(AddEditProductActivity.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("API_UPDATE", "Cập nhật lỗi", t);
+                Toast.makeText(AddEditProductActivity.this, "Gọi API cập nhật thất bại", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadCategories() {
         CategoryApi categoryApi = retrofit.create(CategoryApi.class);
         categoryApi.getAllCategories().enqueue(new Callback<List<Category>>() {
             @Override
@@ -191,6 +209,15 @@ public class AddEditProductActivity extends AppCompatActivity {
                     );
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerCategory.setAdapter(adapter);
+
+                    if (isEditMode && selectedCategoryId != null) {
+                        for (int i = 0; i < categoryList.size(); i++) {
+                            if (categoryList.get(i).getCategoryId().equals(selectedCategoryId)) {
+                                spinnerCategory.setSelection(i);
+                                break;
+                            }
+                        }
+                    }
 
                     spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override

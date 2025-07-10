@@ -15,7 +15,9 @@ import com.example.electronic_equipment.activities.DetailActivity;
 import com.example.electronic_equipment.models.Product;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
@@ -70,8 +72,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.txtDescription.setText(product.getDescription());
         holder.txtQuantity.setText(String.valueOf(product.getQuantity()));
 
-        DecimalFormat formatter = new DecimalFormat("#,###");
-        holder.txtPrice.setText(formatter.format(product.getPrice()) + " đ");
+        NumberFormat vnFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedPrice = vnFormat.format(product.getPrice());
+        holder.txtPrice.setText(formattedPrice);
 
         if (product.getImageUrl() != null && !product.getImageUrl().isEmpty()) {
             Glide.with(context)

@@ -27,18 +27,6 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        SessionManager sessionManager = new SessionManager(this);
-        Log.d("Session", "Token = " + sessionManager.getToken());
-        Log.d("Session", "isLoggedIn = " + sessionManager.isLoggedIn());
-
-        if (!sessionManager.isLoggedIn()) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-            return;
-        }
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         bottomNavigationView.setSelectedItemId(R.id.nav_home);

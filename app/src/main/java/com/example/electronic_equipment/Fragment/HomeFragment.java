@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
     private void fetchProductsFromAPI(int page) {
         isLoading = true;
 
-        Call<ProductResponse> call = productApi.getAllProducts("", page, pageSize);
+        Call<ProductResponse> call = productApi.getAllProducts( page, pageSize);
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
