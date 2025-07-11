@@ -2,7 +2,7 @@ package com.example.electronic_equipment.Helper;
 
 import android.annotation.SuppressLint;
 
-import com.example.zalopayment.Helper.HMac.HMacUtil;
+import com.example.electronic_equipment.Helper.HMac.HMacUtil;
 
 import org.jetbrains.annotations.NotNull;
 
