@@ -72,6 +72,7 @@ public class CartFragment extends Fragment {
         btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         btnProcessPayment.setOnClickListener(v -> {
+
             Intent intent = new Intent(requireContext(), PaymentSuccessActivity.class);
             startActivity(intent);
         });
