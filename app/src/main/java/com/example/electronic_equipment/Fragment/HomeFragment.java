@@ -6,7 +6,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.activities.DetailActivity;
+import com.example.electronic_equipment.adapters.BannerAdapter;
 import com.example.electronic_equipment.adapters.ProductAdapter;
 import com.example.electronic_equipment.models.Product;
 import com.example.electronic_equipment.models.ProductResponse;
@@ -21,6 +24,7 @@ import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,6 +51,7 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,13 +106,41 @@ public class HomeFragment extends Fragment {
 
         fetchProductsFromAPI(currentPage);
 
+        ViewPager2 viewPager = view.findViewById(R.id.viewPagerBanner);
+
+        List<String> banners = Arrays.asList(
+                "https://maytinhhaiphong.com/wp-content/uploads/2022/07/Laptop-cu-bao-hanh-12-thang.jpg",
+                "https://maytinhhaiphong.com/wp-content/uploads/2025/03/ChatGPT-Image-16_05_10-27-thg-3-2025.png",
+                "https://marketplace.canva.com/EAGivKbCdCA/1/0/400w/canva-b%C3%A0i-%C4%91%C4%83ng-instagram-sale-khuy%E1%BA%BFn-m%C3%A3i-laptop-m%C3%A1y-t%C3%ADnh-c%C3%B4ng-ngh%E1%BB%87-thanh-l%E1%BB%8Bch-xanh-tr%E1%BA%AFng-zmF2-Hf_MM8.jpg"
+        );
+
+        BannerAdapter adapter = new BannerAdapter(banners);
+        viewPager.setAdapter(adapter);
+
+        // Tự động chuyển banner
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            int currentPage = 0;
+
+            @Override
+            public void run() {
+                if (currentPage == banners.size()) {
+                    currentPage = 0;
+                }
+                viewPager.setCurrentItem(currentPage++, true);
+                handler.postDelayed(this, 3000); // 3 giây chuyển slide
+            }
+        };
+
+        handler.post(runnable);
+
         return view;
     }
 
     private void fetchProductsFromAPI(int page) {
         isLoading = true;
 
-        Call<ProductResponse> call = productApi.getAllProducts( page, pageSize);
+        Call<ProductResponse> call = productApi.getAllProducts(page, pageSize);
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {

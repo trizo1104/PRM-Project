@@ -78,11 +78,11 @@
                 </LinearLayout>
 
                 <!-- Product Image -->
-                <ImageView
-                    android:layout_width="361dp"
-                    android:layout_height="200dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/banner" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <!-- Brand Categories -->

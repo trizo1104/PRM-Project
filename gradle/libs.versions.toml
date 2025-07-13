@@ -20,5 +20,5 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
 
 [plugins]
-android-application = { id = "com.android.application", version = "8.9.0" }
+android-application = { id = "com.android.application", version = "8.10.1" }
 
