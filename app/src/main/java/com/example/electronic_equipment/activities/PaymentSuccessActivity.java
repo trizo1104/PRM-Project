@@ -1,8 +1,5 @@
 package com.example.electronic_equipment.activities;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -25,12 +22,12 @@ public class PaymentSuccessActivity extends AppCompatActivity {
 
         btnDone.setOnClickListener(v -> {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.btnDone, new HomeFragment()); // fragment_container là ID của FrameLayout
-            transaction.addToBackStack(null); // nếu muốn quay lại
+            transaction.replace(R.id.btnDone, new HomeFragment());
+            transaction.addToBackStack(null);
             transaction.commit();
         });
 
-        // Optionally: update detail rows dynamically here
+
     }
 }
 
