@@ -2,6 +2,7 @@ package com.example.electronic_equipment.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +71,9 @@ public class CartFragment extends Fragment {
         btnBack = view.findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v -> requireActivity().onBackPressed());
-
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         btnProcessPayment.setOnClickListener(v -> {
 
             Intent intent = new Intent(requireContext(), PaymentSuccessActivity.class);
