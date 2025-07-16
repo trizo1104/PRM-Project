@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.electronic_equipment.R;
+import com.example.electronic_equipment.activities.MapActivity;
 import com.example.electronic_equipment.login.LoginActivity;
 import com.example.electronic_equipment.activities.OrdersActivity;
 import com.example.electronic_equipment.utils.SessionManager;
@@ -22,6 +23,8 @@ import com.example.electronic_equipment.utils.SessionManager;
 public class ProfileFragment extends Fragment {
 
     private Button logoutButton;
+
+    private LinearLayout  btnShowMap;
     private SessionManager sessionManager;
 
     public ProfileFragment() {
@@ -41,6 +44,8 @@ public class ProfileFragment extends Fragment {
         sessionManager = new SessionManager(requireContext());
 
         logoutButton = view.findViewById(R.id.logoutButton);
+        btnShowMap = view.findViewById(R.id.optionGgmap);
+
         LinearLayout optionOrders = view.findViewById(R.id.optionOrders);
 
         if (logoutButton == null) {
@@ -49,6 +54,11 @@ public class ProfileFragment extends Fragment {
         }
 
         logoutButton.setOnClickListener(v -> showLogoutDialog());
+
+        btnShowMap.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), MapActivity.class);
+            startActivity(intent);
+        });
 
         if (optionOrders != null) {
             optionOrders.setOnClickListener(v -> {

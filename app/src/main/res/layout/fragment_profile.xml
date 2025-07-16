@@ -116,7 +116,7 @@
                 android:background="#EEE" />
 
             <LinearLayout
-                android:id="@+id/optionQr"
+                android:id="@+id/optionGgmap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -126,14 +126,14 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/qr_code"
+                    android:src="@drawable/map"
                     app:tint="#333" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="QR Code"
+                    android:text="My Location"
                     android:textColor="#333"
                     android:textSize="16sp" />
             </LinearLayout>
