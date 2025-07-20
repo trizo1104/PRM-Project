@@ -13,19 +13,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.activities.DetailActivity;
+import com.example.electronic_equipment.activities.ProductByCategoryActivity;
 import com.example.electronic_equipment.adapters.BannerAdapter;
 import com.example.electronic_equipment.adapters.ProductAdapter;
+import com.example.electronic_equipment.models.Category;
 import com.example.electronic_equipment.models.Product;
 import com.example.electronic_equipment.models.ProductResponse;
+import com.example.electronic_equipment.networks.CategoryApi;
 import com.example.electronic_equipment.networks.ProductApi;
 import com.example.electronic_equipment.networks.RetrofitClient;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -106,6 +114,8 @@ public class HomeFragment extends Fragment {
 
         fetchProductsFromAPI(currentPage);
 
+        fetchCategoriesAndDisplay(view);
+
         ViewPager2 viewPager = view.findViewById(R.id.viewPagerBanner);
 
         List<String> banners = Arrays.asList(
@@ -167,6 +177,64 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<ProductResponse> call, Throwable t) {
                 isLoading = false;
                 Log.e("API_ERROR", "API call failed", t);
+            }
+        });
+    }
+
+    private void fetchCategoriesAndDisplay(View rootView) {
+        LinearLayout categoryContainer = rootView.findViewById(R.id.categoryContainer);
+
+        Retrofit retrofit = RetrofitClient.getInstance();
+        CategoryApi categoryApi = retrofit.create(CategoryApi.class);
+
+        Map<String, Integer> categoryImageMap = new HashMap<>();
+        categoryImageMap.put("Computer", R.drawable.computer);
+        categoryImageMap.put("Mouse", R.drawable.mouse);
+        categoryImageMap.put("Laptop", R.drawable.office_chair);
+        categoryImageMap.put("Speaker", R.drawable.speaker);
+        categoryImageMap.put("Monitor", R.drawable.monitor);
+        categoryImageMap.put("Keyboard", R.drawable.keyboard);
+        categoryImageMap.put("Tai nghe", R.drawable.headphones);
+
+        categoryApi.getAllCategories().enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Category> categories = response.body();
+
+                    for (Category category : categories) {
+                        String name = category.getName();
+                        Integer imageResId = categoryImageMap.get(name);
+                        if (imageResId != null) {
+                            // Create ImageView
+                            ShapeableImageView imageView = new ShapeableImageView(requireContext());
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                    (int) getResources().getDimension(R.dimen.category_icon_size),
+                                    (int) getResources().getDimension(R.dimen.category_icon_size)
+                            );
+                            params.setMarginEnd(16);
+                            imageView.setLayoutParams(params);
+                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            imageView.setImageResource(imageResId);
+
+                            // Set Click Listener INSIDE the loop
+                            imageView.setOnClickListener(v -> {
+                                Intent intent = new Intent(requireContext(), ProductByCategoryActivity.class);
+                                intent.putExtra("category_id", category.getCategoryId());
+                                startActivity(intent);
+                            });
+
+                            categoryContainer.addView(imageView);
+                        }
+                    }
+                } else {
+                    Log.e("Category_API", "Empty or failed response");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                Log.e("Category_API", "Error fetching categories", t);
             }
         });
     }

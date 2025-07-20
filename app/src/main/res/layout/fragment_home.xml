@@ -86,82 +86,95 @@
             </LinearLayout>
 
             <!-- Brand Categories -->
+<!--            <HorizontalScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:importantForAccessibility="no"-->
+<!--                android:scrollbars="none">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    &lt;!&ndash; Sample Brand Icon &ndash;&gt;-->
+<!--                    <com.google.android.material.imageview.ShapeableImageView-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_marginEnd="12dp"-->
+<!--                        android:contentDescription="@null"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        android:src="@drawable/computer"-->
+<!--                         />-->
+<!--                    &lt;!&ndash; Repeat for more brands &ndash;&gt;-->
+<!--                    <com.google.android.material.imageview.ShapeableImageView-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_marginEnd="12dp"-->
+<!--                        android:contentDescription="@null"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        android:src="@drawable/mouse"-->
+<!--                        />-->
+
+<!--                    <com.google.android.material.imageview.ShapeableImageView-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_marginEnd="12dp"-->
+<!--                        android:contentDescription="@null"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        android:src="@drawable/office_chair"-->
+<!--                        />-->
+
+<!--                    <com.google.android.material.imageview.ShapeableImageView-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_marginEnd="12dp"-->
+<!--                        android:contentDescription="@null"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        android:src="@drawable/speaker"-->
+<!--                       />-->
+
+<!--                    <com.google.android.material.imageview.ShapeableImageView-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_marginEnd="12dp"-->
+<!--                        android:contentDescription="@null"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        android:src="@drawable/monitor"-->
+<!--                        />-->
+
+<!--                    <com.google.android.material.imageview.ShapeableImageView-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_marginEnd="12dp"-->
+<!--                        android:contentDescription="@null"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        android:src="@drawable/keyboard"-->
+<!--                        />-->
+
+<!--                    <com.google.android.material.imageview.ShapeableImageView-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_marginEnd="12dp"-->
+<!--                        android:contentDescription="@null"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        android:src="@drawable/headphones"-->
+<!--                        />-->
+<!--                </LinearLayout>-->
+<!--            </HorizontalScrollView>-->
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:importantForAccessibility="no"
                 android:scrollbars="none">
 
                 <LinearLayout
+                    android:id="@+id/categoryContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!-- Sample Brand Icon -->
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="12dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/computer"
-                         />
-                    <!-- Repeat for more brands -->
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="12dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/mouse"
-                        />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="12dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/office_chair"
-                        />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="12dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/speaker"
-                       />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="12dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/monitor"
-                        />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="12dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/keyboard"
-                        />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="12dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/headphones"
-                        />
-                </LinearLayout>
+                    android:orientation="horizontal" />
             </HorizontalScrollView>
 
             <!-- New Arrival Section -->
