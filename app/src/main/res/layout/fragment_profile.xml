@@ -40,6 +40,16 @@
             <View
                 android:layout_width="24dp"
                 android:layout_height="24dp" />
+
+            <ImageButton
+                android:id="@+id/btnEditProfile"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Edit Profile"
+                android:src="@drawable/ic_edit" />
         </LinearLayout>
 
         <!-- Profile Picture -->

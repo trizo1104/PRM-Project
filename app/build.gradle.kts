@@ -59,4 +59,5 @@ dependencies {
 
     implementation(libs.play.services.location)
     implementation(libs.play.services.maps)
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }
