@@ -115,7 +115,7 @@ public class CartFragment extends Fragment {
     }
 
     private void fetchCartsFromAPI(String userId) {
-        Call<CartResponse> call = cartApi.getAllCarts(userId);
+        Call<CartResponse> call = cartApi.getAllCarts(userId, 0, 10);
         call.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
