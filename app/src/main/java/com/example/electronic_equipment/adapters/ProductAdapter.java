@@ -69,7 +69,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product product = productList.get(position);
 
         holder.txtName.setText(product.getName());
-        holder.txtDescription.setText(product.getDescription());
+//        holder.txtDescription.setText(product.getDescription());
         holder.txtQuantity.setText(String.valueOf(product.getQuantity()));
 
         NumberFormat vnFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
@@ -138,7 +138,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             super(itemView);
             txtName = itemView.findViewById(R.id.txtProductName);
             txtPrice = itemView.findViewById(R.id.txtProductPrice);
-            txtDescription = itemView.findViewById(R.id.txtProductDescription);
+//            txtDescription = itemView.findViewById(R.id.txtProductDescription);
             txtQuantity = itemView.findViewById(R.id.txtProductQuantity);
             imgEdit = itemView.findViewById(R.id.imgEdit);
             imgDelete = itemView.findViewById(R.id.imgDelete);

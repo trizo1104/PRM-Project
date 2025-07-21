@@ -29,16 +29,18 @@
             android:paddingTop="6dp"
             android:text="Nike Air Force"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLines="3"
+            android:ellipsize="end" />
 
-        <TextView
-            android:id="@+id/txtProductDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="2dp"
-            android:text="Men's Road Running Shoes"
-            android:textColor="#888888"
-            android:textSize="12sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtProductDescription"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingTop="2dp"-->
+<!--            android:text="Men's Road Running Shoes"-->
+<!--            android:textColor="#888888"-->
+<!--            android:textSize="12sp" />-->
 
         <TextView
             android:id="@+id/txtProductPrice"
@@ -60,5 +62,3 @@
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
-
-

@@ -105,19 +105,17 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     } else {
                         Log.e("Login", "❌ Token or Role is null in body");
-                        Toast.makeText(LoginActivity.this, "Invalid login data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Thông tin đăng nhập không hợp lệ", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Log.e("Login", "❌ Login failed, code: " + response.code());
-                    Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
                 }
             }
 
-
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.e("Login", "❌ Network error: " + t.getMessage());
-                Toast.makeText(LoginActivity.this, "Network error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

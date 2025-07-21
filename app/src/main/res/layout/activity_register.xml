@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="Create Account"
+            android:text="Tạo Tài Khoản"
             android:textColor="#333333"
             android:textSize="26sp"
             android:textStyle="bold" />
@@ -37,7 +37,7 @@
             android:layout_height="50dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/bg_input"
-            android:hint="Full Name"
+            android:hint="Họ và Tên"
             android:inputType="textPersonName"
             android:paddingHorizontal="16dp" />
 
@@ -52,6 +52,28 @@
             android:inputType="textEmailAddress"
             android:paddingHorizontal="16dp" />
 
+        <!-- Phone -->
+        <EditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_input"
+            android:hint="Số Điện Thoại"
+            android:inputType="phone"
+            android:paddingHorizontal="16dp" />
+
+        <!-- Address -->
+        <EditText
+            android:id="@+id/addressEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_input"
+            android:hint="Địa Chỉ"
+            android:inputType="textPostalAddress"
+            android:paddingHorizontal="16dp" />
+
         <!-- Password -->
         <EditText
             android:id="@+id/passwordEditText"
@@ -59,7 +81,7 @@
             android:layout_height="50dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_input"
-            android:hint="Password"
+            android:hint="Mật Khẩu"
             android:inputType="textPassword"
             android:paddingHorizontal="16dp" />
 
@@ -70,7 +92,7 @@
             android:layout_height="50dp"
             android:background="@drawable/bg_button"
             android:backgroundTint="@null"
-            android:text="Register"
+            android:text="Đăng Ký"
             android:textColor="#FFFFFF"
             android:textAllCaps="false" />
 
@@ -80,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Back to Login"
+            android:text="Quay Lại Đăng Nhập"
             android:textColor="#2196F3"
             android:textSize="14sp" />
 

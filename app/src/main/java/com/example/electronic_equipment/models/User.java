@@ -5,6 +5,9 @@ public class User {
     private String fullName;
     private String email;
     private String phoneNumber;
+    private String role;
+    private boolean isActive;
+    private String createdAt;
 
     public User(String fullName, String email, String phoneNumber) {
         this.fullName = fullName;
@@ -42,5 +45,29 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }
