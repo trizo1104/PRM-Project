@@ -58,15 +58,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NEW SEASON"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="FLASH SALE"
+                    android:text="Cửa hàng thiết bị điện tử"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -191,16 +184,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="New Arrival"
+                    android:text="Các thiết bị mới nhất"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="See More"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- Product Cards -->

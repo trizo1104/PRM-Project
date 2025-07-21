@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
     private SessionManager sessionManager;
 
     ImageView profileImage;
-    TextView nameTextView, emailTextView;
+    TextView nameTextView, emailTextView, phoneTextView, roleTextView, statusTextView, createdDateTextView;
 
     User user;
 
@@ -86,6 +86,10 @@ public class ProfileFragment extends Fragment {
         profileImage = view.findViewById(R.id.profileImage);
         nameTextView = view.findViewById(R.id.nameTextView);
         emailTextView = view.findViewById(R.id.emailTextView);
+        phoneTextView = view.findViewById(R.id.phoneTextView);
+        roleTextView = view.findViewById(R.id.roleTextView);
+        statusTextView = view.findViewById(R.id.statusTextView);
+        createdDateTextView = view.findViewById(R.id.createdDateTextView);
 
         // Call API to get user profile
         loadUserProfile();
@@ -150,31 +154,52 @@ public class ProfileFragment extends Fragment {
             String token = "Bearer " + rawtoken;
             Call<User> call = profileApi.getUserProfile(token, "*/*");
 
-            Log.d("adsfadf", "Bearer " + token);
+            Log.d("ProfileFragment", "Bearer " + token);
 
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    Log.d("adsfadf", String.valueOf(response.body().getFullName()));
+                    // Check if fragment is still attached
+                    if (!isAdded() || getContext() == null) {
+                        return;
+                    }
+
                     if (response.isSuccessful() && response.body() != null) {
                         user = response.body();
 
-                        Log.d("adsfasdf", String.valueOf(user.getFullName()));
+                        Log.d("ProfileFragment", "User loaded: " + user.getFullName());
 
-                        // Set name and email
+                        // Set basic info
                         nameTextView.setText(user.getFullName());
                         emailTextView.setText(user.getEmail());
-                        profileImage.setImageResource(R.drawable.rounded_profile);
+                        phoneTextView.setText(user.getPhoneNumber());
 
-                        // Load image (if available)
-//                        if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
-//                            Glide.with(requireContext())
-//                                    .load(user.getImageUrl())
-//                                    .placeholder(R.drawable.rounded_profile)  // fallback placeholder
-//                                    .into(profileImage);
-//                        } else {
-//                             // default
-//                        }
+                        // Set role
+                        roleTextView.setText(user.getRole());
+
+                        // Set status with color
+                        if (user.isActive()) {
+                            statusTextView.setText("Hoạt động");
+                            statusTextView.setTextColor(requireContext().getColor(android.R.color.holo_green_dark));
+                        } else {
+                            statusTextView.setText("Không hoạt động");
+                            statusTextView.setTextColor(requireContext().getColor(android.R.color.holo_red_dark));
+                        }
+
+                        // Format and set created date
+                        String createdAt = user.getCreatedAt();
+                        if (createdAt != null && !createdAt.isEmpty()) {
+                            try {
+                                // Parse ISO date format: "2025-07-21T17:20:01.803236"
+                                String[] dateParts = createdAt.split("T")[0].split("-");
+                                String formattedDate = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
+                                createdDateTextView.setText(formattedDate);
+                            } catch (Exception e) {
+                                createdDateTextView.setText(createdAt);
+                            }
+                        }
+
+                        profileImage.setImageResource(R.drawable.rounded_profile);
 
                     } else {
                         Toast.makeText(requireContext(), "Failed to load profile", Toast.LENGTH_SHORT).show();
@@ -183,7 +208,11 @@ public class ProfileFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT).show();
+                    // Check if fragment is still attached
+                    if (!isAdded() || getContext() == null) {
+                        return;
+                    }
+                    Toast.makeText(requireContext(), "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -201,6 +230,11 @@ public class ProfileFragment extends Fragment {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
+                    // Check if fragment is still attached
+                    if (!isAdded() || getContext() == null) {
+                        return;
+                    }
+
                     if (response.isSuccessful() && response.body() != null) {
                         User user = response.body();
                         nameTextView.setText(user.getFullName());
@@ -213,6 +247,10 @@ public class ProfileFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
+                    // Check if fragment is still attached
+                    if (!isAdded() || getContext() == null) {
+                        return;
+                    }
                     Toast.makeText(requireContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -224,4 +262,3 @@ public class ProfileFragment extends Fragment {
 
 
 }
-

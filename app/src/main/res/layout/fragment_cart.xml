@@ -89,7 +89,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Total Price\n$0.00"
+            android:text="Tổng tiền\n$0.00"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -98,7 +98,7 @@
             android:id="@+id/btnProcessPayment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Process Payment"
+            android:text="Thanh toán"
             android:backgroundTint="#FFFFFF"
             android:textColor="#000000"
             android:textStyle="bold"
