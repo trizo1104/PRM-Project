@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Electronic-Equipment</string>
+    <string name="back_button">Back</string>
     <dimen name="category_icon_size">45dp</dimen>
 </resources>
