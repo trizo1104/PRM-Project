@@ -33,6 +33,10 @@
     <color name="card_background">#FFFFFF</color>
     <color name="card_shadow">#1F000000</color>
 
+    <color name="zalopay_blue">#008FE5</color>
+    <color name="zalopay_dark">#0073C2</color>
+    <color name="zalopay_light">#E3F2FD</color>
+
     <!-- Divider -->
     <color name="divider_color">#E0E0E0</color>
 </resources>

@@ -37,6 +37,18 @@
         <activity android:name=".activities.OrdersActivity" />
         <activity android:name=".activities.MapActivity" />
         <activity android:name=".activities.ProductByCategoryActivity" />
+        <activity
+            android:name=".payment.OrderPayment"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="demozpdk" android:host="app" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".payment.PaymentNotification" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
