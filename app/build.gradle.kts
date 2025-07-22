@@ -37,11 +37,7 @@ dependencies {
     implementation(libs.cardview)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(fileTree(mapOf(
-        "dir" to "C:\\Users\\ADMIN\\Downloads\\ZaloPayLib",
-        "include" to listOf("*.aar", "*.jar"),
-        "exclude" to listOf("")
-    )))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -56,6 +52,12 @@ dependencies {
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation ("com.google.android.material:material:1.12.0")
+
+    implementation(fileTree(mapOf(
+        "dir" to "D:\\ZaloPayLib",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("")
+    )))
 
     implementation(libs.play.services.location)
     implementation(libs.play.services.maps)
