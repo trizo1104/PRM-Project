@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.electronic_equipment.R;
 import com.example.electronic_equipment.activities.DetailActivity;
@@ -188,23 +189,21 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchCategoriesAndDisplay(View rootView) {
-        // Sửa ID từ categoryContainer thành recyclerViewCategories
-//        RecyclerView recyclerViewCategories = rootView.findViewById(R.id.recyclerViewCategories);
-
-        // Set layout manager cho categories
-//        recyclerViewCategories.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        LinearLayout categoryContainer = rootView.findViewById(R.id.categoryContainer);
 
         Retrofit retrofit = RetrofitClient.getInstance();
         CategoryApi categoryApi = retrofit.create(CategoryApi.class);
 
         Map<String, Integer> categoryImageMap = new HashMap<>();
-        categoryImageMap.put("Computer", R.drawable.computer);
-        categoryImageMap.put("Mouse", R.drawable.mouse);
+        categoryImageMap.put("Chuột máy tính", R.drawable.mouse);
         categoryImageMap.put("Laptop", R.drawable.office_chair);
-        categoryImageMap.put("Speaker", R.drawable.speaker);
-        categoryImageMap.put("Monitor", R.drawable.monitor);
-        categoryImageMap.put("Keyboard", R.drawable.keyboard);
-        categoryImageMap.put("Tai nghe", R.drawable.headphones);
+        categoryImageMap.put("Loa", R.drawable.speaker);
+        categoryImageMap.put("Màn hình máy tính", R.drawable.monitor);
+        categoryImageMap.put("Bàn phím", R.drawable.keyboard);
+        categoryImageMap.put("Tai nghe chụp tai", R.drawable.headphones);
+        categoryImageMap.put("Tai nghe dây", R.drawable.earphone);
+        categoryImageMap.put("Tablet", R.drawable.tablet);
+        categoryImageMap.put("Điện thoại", R.drawable.smartphone);
 
         categoryApi.getAllCategories().enqueue(new Callback<List<Category>>() {
             @Override
@@ -212,11 +211,31 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Category> categories = response.body();
 
-                    // Nếu có CategoryAdapter, sử dụng adapter thay vì thêm view trực tiếp
-                    // CategoryAdapter categoryAdapter = new CategoryAdapter(categories, categoryImageMap);
-                    // recyclerViewCategories.setAdapter(categoryAdapter);
+                    LayoutInflater inflater = LayoutInflater.from(requireContext());
 
-                    Log.d("Category_API", "Loaded " + categories.size() + " categories");
+                    for (Category category : categories) {
+                        String name = category.getName();
+                        Integer imageResId = categoryImageMap.get(name);
+
+                        if (imageResId != null) {
+                            View categoryView = inflater.inflate(R.layout.item_category, categoryContainer, false);
+
+                            ImageView imageView = categoryView.findViewById(R.id.imageCategory);
+                            TextView textView = categoryView.findViewById(R.id.textCategory);
+
+                            imageView.setImageResource(imageResId);
+                            textView.setText(name);
+
+                            categoryView.setOnClickListener(v -> {
+                                Intent intent = new Intent(requireContext(), ProductByCategoryActivity.class);
+                                intent.putExtra("category_id", category.getCategoryId());
+                                startActivity(intent);
+                            });
+
+                            categoryContainer.addView(categoryView);
+                        }
+                    }
+
                 } else {
                     Log.e("Category_API", "Empty or failed response");
                 }
