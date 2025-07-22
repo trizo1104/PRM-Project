@@ -1,9 +1,10 @@
-<!-- res/layout/activity_detail.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="16dp">
+    android:background="@color/background_light"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,174 +12,244 @@
         android:orientation="vertical">
 
         <!-- Top Bar -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingVertical="8dp">
+            android:layout_height="56dp"
+            android:background="@android:color/white"
+            android:elevation="4dp"
+            android:paddingHorizontal="16dp">
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="42dp"
-                android:layout_height="69dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:contentDescription="Back"
                 android:focusable="true"
-                android:src="@drawable/ic_back" />
+                android:padding="12dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/DetailName"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Detail Shoes"
-                android:textAlignment="center"
+                android:text="Chi Tiết Sản Phẩm"
+                android:textColor="@color/text_primary"
                 android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Share"
-                android:src="@drawable/share" />
-        </LinearLayout>
-
-        <!-- Product Image -->
-        <ImageView
-            android:id="@+id/imgProduct"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-
-            android:layout_marginTop="12dp"
-            android:background="@drawable/product_image_border" />
-
-        <!-- Product Name and Favorite -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nike React Pegasus Trail 4 SE"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtDesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Men's Trail-Running Shoes"
-                    android:textColor="#888888"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/btnFavorite"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:contentDescription="Favorite"
-                android:src="@drawable/heart" />
-        </LinearLayout>
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/heart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Product Image Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white">
 
-        <!-- Description -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Mô tả"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:scaleType="centerCrop"
+                android:background="@color/background_light" />
+        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/txtFullDescription"
+        <!-- Product Info Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This is a comfortable, durable and stylish trail running shoe for men..." />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@android:color/white">
 
-
-        <!-- Price -->
-        <TextView
-            android:id="@+id/txtPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="$170.99"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <!-- Bottom Bar -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="182dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-
-            <!-- Quantity Selector -->
             <LinearLayout
-                android:id="@+id/layoutQuantity"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/quantity_border"
-                android:orientation="horizontal"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <ImageView
-                    android:id="@+id/btnMinus"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:clickable="true"
-                    android:contentDescription="Minus"
-                    android:focusable="true"
-                    android:src="@drawable/ic_minus" />
+                <!-- Product Name and Price -->
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nike React Pegasus Trail 4 SE"
+                    android:textColor="@color/text_primary"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
 
                 <TextView
-                    android:id="@+id/txtQuantity"
-                    android:layout_width="40dp"
+                    android:id="@+id/txtDesc"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:gravity="center"
-                    android:text="1"
+                    android:text="Men's Trail-Running Shoes"
+                    android:textColor="@color/text_secondary"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="16dp" />
 
-                <ImageView
-                    android:id="@+id/btnPlus"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:clickable="true"
-                    android:contentDescription="Plus"
-                    android:focusable="true"
-                    android:src="@drawable/plus" />
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$170.99"
+                    android:textColor="@color/primary_color"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Description -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mô Tả Sản Phẩm"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/txtFullDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="This is a comfortable, durable and stylish trail running shoe for men..."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <!-- Add to Cart Button -->
-            <Button
-                android:id="@+id/btnAddToCart"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:backgroundTint="#000000"
-                android:text="Thêm vào giỏ hàng"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
+        <!-- Bottom Action Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@android:color/white">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
 
+                <!-- Quantity Selector -->
+                <LinearLayout
+                    android:id="@+id/layoutQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="16dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="4dp"
+                        app:cardBackgroundColor="@color/background_light"
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="2dp">
+
+                        <ImageView
+                            android:id="@+id/btnMinus"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:contentDescription="Decrease quantity"
+                            android:focusable="true"
+                            android:padding="12dp"
+                            android:src="@drawable/ic_minus"
+                            app:tint="@color/text_primary" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/txtQuantity"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="4dp"
+                        app:cardBackgroundColor="@color/primary_color"
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="2dp">
+
+                        <ImageView
+                            android:id="@+id/btnPlus"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:contentDescription="Increase quantity"
+                            android:focusable="true"
+                            android:padding="12dp"
+                            android:src="@drawable/plus"
+                            app:tint="@android:color/white" />
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <!-- Add to Cart Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddToCart"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:text="Thêm Vào Giỏ Hàng"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary_color"
+                    app:cornerRadius="16dp"
+                    app:elevation="4dp"
+                    app:icon="@drawable/ic_shopping_cart"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconTint="@android:color/white" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Spacer for bottom padding -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
     </LinearLayout>
 </ScrollView>

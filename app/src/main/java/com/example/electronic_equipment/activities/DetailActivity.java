@@ -53,7 +53,7 @@ public class DetailActivity extends AppCompatActivity {
         txtName = findViewById(R.id.txtName);
         txtDesc = findViewById(R.id.txtDesc);
         txtPrice = findViewById(R.id.txtPrice);
-        DetailName = findViewById(R.id.DetailName);
+//        DetailName = findViewById(R.id.DetailName);
         btnAddToCart = findViewById(R.id.btnAddToCart);
         btnBack = findViewById(R.id.btnBack);
 
@@ -63,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
 
         if (product != null) {
             txtName.setText(product.getName());
-            DetailName.setText("Detail " + product.getName());
+//            DetailName.setText("Detail " + product.getName());
             txtDesc.setText(product.getDescription());
             txtPrice.setText(String.format("%,.0f đ", product.getPrice()));
 

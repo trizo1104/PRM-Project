@@ -67,7 +67,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerNewArrival = view.findViewById(R.id.recyclerNewArrival);
+        // Sửa ID từ recyclerNewArrival thành recyclerViewProducts
+        recyclerNewArrival = view.findViewById(R.id.recyclerViewProducts);
         recyclerNewArrival.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         productList = new ArrayList<>();
@@ -114,8 +115,7 @@ public class HomeFragment extends Fragment {
 
         fetchProductsFromAPI(currentPage);
 
-        fetchCategoriesAndDisplay(view);
-
+        // Setup ViewPager for banner
         ViewPager2 viewPager = view.findViewById(R.id.viewPagerBanner);
 
         List<String> banners = Arrays.asList(
@@ -143,6 +143,12 @@ public class HomeFragment extends Fragment {
         };
 
         handler.post(runnable);
+
+        // Setup categories
+        fetchCategoriesAndDisplay(view);
+
+        // Load initial products
+        loadMoreProducts();
 
         return view;
     }
@@ -182,7 +188,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchCategoriesAndDisplay(View rootView) {
-        LinearLayout categoryContainer = rootView.findViewById(R.id.categoryContainer);
+        // Sửa ID từ categoryContainer thành recyclerViewCategories
+//        RecyclerView recyclerViewCategories = rootView.findViewById(R.id.recyclerViewCategories);
+
+        // Set layout manager cho categories
+//        recyclerViewCategories.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         Retrofit retrofit = RetrofitClient.getInstance();
         CategoryApi categoryApi = retrofit.create(CategoryApi.class);
@@ -202,31 +212,11 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Category> categories = response.body();
 
-                    for (Category category : categories) {
-                        String name = category.getName();
-                        Integer imageResId = categoryImageMap.get(name);
-                        if (imageResId != null) {
-                            // Create ImageView
-                            ShapeableImageView imageView = new ShapeableImageView(requireContext());
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                    (int) getResources().getDimension(R.dimen.category_icon_size),
-                                    (int) getResources().getDimension(R.dimen.category_icon_size)
-                            );
-                            params.setMarginEnd(16);
-                            imageView.setLayoutParams(params);
-                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            imageView.setImageResource(imageResId);
+                    // Nếu có CategoryAdapter, sử dụng adapter thay vì thêm view trực tiếp
+                    // CategoryAdapter categoryAdapter = new CategoryAdapter(categories, categoryImageMap);
+                    // recyclerViewCategories.setAdapter(categoryAdapter);
 
-                            // Set Click Listener INSIDE the loop
-                            imageView.setOnClickListener(v -> {
-                                Intent intent = new Intent(requireContext(), ProductByCategoryActivity.class);
-                                intent.putExtra("category_id", category.getCategoryId());
-                                startActivity(intent);
-                            });
-
-                            categoryContainer.addView(imageView);
-                        }
-                    }
+                    Log.d("Category_API", "Loaded " + categories.size() + " categories");
                 } else {
                     Log.e("Category_API", "Empty or failed response");
                 }
@@ -239,5 +229,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
+    private void loadMoreProducts() {
+        if (!isLoading && !isLastPage) {
+            fetchProductsFromAPI(currentPage);
+        }
+    }
 }
