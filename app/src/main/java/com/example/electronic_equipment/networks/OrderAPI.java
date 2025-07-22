@@ -15,6 +15,9 @@ public interface OrderAPI {
     @GET("Orders/GetAllOrder")
     Call<List<Order>> getAllOrders(@Header("Authorization") String token);
 
+    @GET("Orders/GetAllOrderOfUser")
+    Call<List<Order>> getAllOrdersOfUser(@Header("Authorization") String token);
+
     @POST("Orders/create")
     Call<Order> createOrder(@Header("Authorization") String token);
 

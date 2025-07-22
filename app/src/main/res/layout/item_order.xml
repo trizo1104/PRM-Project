@@ -1,63 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:elevation="4dp"
-    android:padding="12dp"
-    android:fitsSystemWindows="true">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- Header với Order ID và Status -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/txtOrderId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Order #12345"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/txtOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="Pending"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Ngày đặt hàng -->
         <TextView
-            android:id="@+id/tvOrderId"
-            android:layout_width="match_parent"
+            android:id="@+id/txtOrderDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mã đơn hàng: "
-            android:textStyle="bold"
-            android:textColor="#1E88E5"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            android:text="Order Date: 2025-01-20"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp"
+            android:drawablePadding="8dp" />
 
+        <!-- Địa chỉ giao hàng -->
         <TextView
-            android:id="@+id/tvOrderStatus"
+            android:id="@+id/txtShippingAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trạng thái đơn hàng: "
-            android:textColor="#1B5E20"
-            android:layout_marginBottom="4dp" />
+            android:text="123 Main Street, City"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="12dp"
+            android:drawablePadding="8dp"
+            android:maxLines="2"
+            android:ellipsize="end" />
 
-        <TextView
-            android:id="@+id/tvOrderDate"
+        <!-- Divider -->
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ngày đặt: "
-            android:layout_marginBottom="4dp" />
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginBottom="12dp" />
 
-        <TextView
-            android:id="@+id/tvShippingAddress"
+        <!-- Tổng tiền -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ giao hàng: "
-            android:layout_marginBottom="4dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tvTotal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tổng tiền: "
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Total Amount:"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerOrderItems"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:layout_marginBottom="10dp"/>
+            <TextView
+                android:id="@+id/txtOrderTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$99.99"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#E91E63" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

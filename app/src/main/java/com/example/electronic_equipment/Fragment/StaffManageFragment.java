@@ -47,7 +47,7 @@ public class StaffManageFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvOrders);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        orderAdapter = new OrderAdapter(orderList);
+        orderAdapter = new OrderAdapter(requireContext(),orderList);
         recyclerView.setAdapter(orderAdapter);
 
         // Khởi tạo SessionManager và lấy token
