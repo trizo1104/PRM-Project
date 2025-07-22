@@ -19,8 +19,12 @@ public interface CartApi {
     @POST("CartItems/{productId}/add-to-cart")
     Call<Void> addToCart(@Path("productId") String productId, @Query("userId") String userId, @Query("quantity") int quantity);
 
-    @GET("CartItems/cart/{userId}")
-    Call<CartResponse> getAllCarts(@Path("userId") String userId, @Query("pageIndex") int page,
+//    @GET("CartItems/cart/{userId}")
+//    Call<CartResponse> getAllCarts(@Path("userId") String userId, @Query("pageIndex") int page,
+//                                   @Query("pageSize") int limit);
+
+    @GET("CartItems/cart-of-user")
+    Call<CartResponse> getAllCarts(@Query("userId") String userId, @Query("pageIndex") int page,
                                    @Query("pageSize") int limit);
 
     @PUT("CartItems/{productId}/decrease-cart-quantity")
